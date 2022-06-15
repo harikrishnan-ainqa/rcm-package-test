@@ -6,7 +6,7 @@ import {
     Route
   } from "react-router-dom";
   
-import { SignIn, Profile,CustLayout } from 'functional-components-boilerplate';
+import { SignIn, Profile,CustLayout,HelloWorld } from 'functional-components-boilerplate';
 
 const App = ()  => {
 
@@ -19,9 +19,13 @@ const App = ()  => {
                     <CustLayout>
                          <SignIn 
                             authContext={ AuthContext } 
-                            authUrl={ `${mockAPI}/auth` } 
+                            authUrl={ `${mockAPI}/auth` }
                         />
                     </CustLayout>
+                  } 
+                />
+                <Route path="/hello-world" element={
+                        <HelloWorld/>
                   } 
                 />
                 <Route path="/profile" element={

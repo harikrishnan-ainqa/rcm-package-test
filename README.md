@@ -15,13 +15,15 @@ A shareable Material UI component library with a playground folder to live-test 
 
 ## Steps to bring the functional components to the UI Builder
 
-  1. Create the functional component
-  2. Export the component in the index.js file
+  1. Customize the default theme of the package
+  2. Create the functional component
+     1. For the styling, only use material theme by using the useTheme() hook for both material ui components & also inline styles. Hence it can be customized based on the project
+  3. Export the component in the index.js file
      1. ``` export { default as CustLayout } from './components/layout' ```
-  3. Run & test the functional component with the help of the playground project
-  4. After testing, publish the npm package with the proper versioning
-  5. Next, add the component JSON in the DB( ArangoDB) (Details Given Below)
-  6. To show the component in the UI Builder, the package needs to be added to the UI Builder code, so contact the UI Builder team. (This is only required for newly created package, after that it won't be required)
+  4. Run & test the functional component with the help of the playground project
+  5. After testing, publish the npm package with the proper versioning
+  6. Next, add the component JSON in the DB( ArangoDB) (Details Given Below)
+  7. To show the component in the UI Builder, the package needs to be added to the UI Builder code, so contact the UI Builder team. (This is only required for newly created package, after that it won't be required)
 
 
 ## Functional Component Structure
@@ -29,17 +31,31 @@ A shareable Material UI component library with a playground folder to live-test 
 ```jsx
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import withStyleFix from '../stylefix';
+import withTheme from '../themeProvider';
+import { useTheme } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
-function HelloWorld(props) {
+const HelloWorld=(props)=>{
+    const theme = useTheme();
     const {name}=props;
-    return <Typography>Hello {name}</Typography>
+
+    return(
+        <Container disableGutters maxWidth="lg" style={{display:"grid",placeItems:"center",minHeight:"100vh"}}>
+            <Typography variant="h2" style={{color:theme?.palette?.primary?.main,textAlign:"center",fontWeight:500}}>Hello {name}</Typography>
+      </Container>
+        )
 }
+     
 
 HelloWorld.defaultProps={
     name:"React & Material UI NPM package boilerplate"
 }
 
-export default HelloWorld;
+export default withStyleFix(withTheme(HelloWorld));
+
+//withStyleFix -  It can be used to avoid class name collisions when using multiple generators in the same document.
+// withTheme -  To Provide the theme object to the component as a property, which can be consumed by using useTheme() hook as shown above
 
 ```
 
@@ -312,7 +328,7 @@ For further more details refere the below link
 
 ## Requirements Status
  - [x] Boilerplate Setup with playground
- - [ ] Using components styles from the theme setup 
+ - [x] Using components styles from the theme setup 
  - [ ] Access control for the components
  - [ ] Multilingual setup for the components
   
@@ -322,3 +338,7 @@ For further more details refere the below link
 ### 14-06-22
 - Boiler Plate created
 - Basic instructions to use this boilerplate (README.md) added
+
+### 15-06-22
+- Configured the theme setup & the style fix for the material ui components. 
+- Updated the ```Steps to bring the functional components to the UI Builder``` & ```Functional Component Structure``` in the readme file

@@ -2,20 +2,20 @@
 
 ## Permission List structure
 
-```
-permission_list = [
+```js
+
+let permission_list = [
     {
-        unique_id : "",
-        ...
+        unique_id : ""
     }
 ]
 
 ```
- 
+
  
 ## Store the permission list to the localStorage with permissionData as a keyName during the time of login
 
-```
+```jsx
 import { checkWithCasbian } from "<%>path<%>/permissionHandler" // casbian file path
 useEffect(() => {
     // function call
@@ -27,9 +27,9 @@ useEffect(() => {
 ```
 
 
-// permissionHandler.js -  seprate file ( file content will be change based permission list )
+## PermissionHandler.js -  seperate file ( file content will be changed based on the permission list )
 
-```
+```js
 const casbinjs = require("casbin.js");
 const permissionJson = (funName = []) => {
     let pj = localStorage.getItem("permissionData");
@@ -48,7 +48,8 @@ const permissionJson = (funName = []) => {
     return returnJson;
 }
 ```
-```
+
+```js
 export const checkWithCasbian = (funName = []) => {
     let permission = permissionJson(funName)
     const authorizer = new casbinjs.Authorizer("manual", permission);

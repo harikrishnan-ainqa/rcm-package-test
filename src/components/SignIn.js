@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { useTheme } from '@material-ui/core/styles';
+import withTheme from '../themeProvider';
+import withStyleFix from '../stylefix';
 
 const SignInValidationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -38,11 +41,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function SignIn({ authContext, authUrl }) {
+const SignIn=({ authContext, authUrl })=> {
 	const [error, setError] = useState(null)
 	const { setToken } = useContext(authContext); 
 	const classes = useStyles();
-
+	const theme = useTheme();
+	
 	const initialValues = {
 		email: '',
 		password: '',
@@ -72,7 +76,7 @@ const handleSubmit = (values) => {
 			<div className={classes.paper}>
 				<Avatar className={classes.avatar}><LockOutlinedIcon /></Avatar>
 				<Typography component="h1" variant="h5">Sign in</Typography>
-
+				<p style={{color:theme.palette.grey[500],fontFamily:theme.typography.fontFamily}}>Please Sign In to Continue</p>
 				<Formik
 					initialValues={ initialValues }
 					// validationSchema={ SignInValidationSchema }
@@ -129,3 +133,6 @@ const handleSubmit = (values) => {
 	)
   
 }
+
+
+export default withStyleFix(withTheme(SignIn))

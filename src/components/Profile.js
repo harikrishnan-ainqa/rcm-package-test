@@ -9,6 +9,9 @@ import { Formik, Form, Field } from 'formik';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import withStyleFix from '../stylefix';
+import withTheme from '../themeProvider';
+
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Profile({ profileURL }) {
+const Profile=({ profileURL })=>{
 	const [message, setMessage] = useState(null)
 	const [profile, setProfile] = useState({
         firstName: '',
@@ -156,3 +159,7 @@ export default function Profile({ profileURL }) {
 	)
   
 }
+
+
+
+export default withStyleFix(withTheme(Profile));

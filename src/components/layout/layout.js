@@ -17,6 +17,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import NormalDrawer from "./drawer";
 import NestedDrawer from "./nestedDrawer";
+import withStyleFix from "../../stylefix";
+import withTheme from "../../themeProvider";
 
 const drawerWidth = 240;
 
@@ -491,4 +493,4 @@ Layout.defaultProps = {
   Menu: true,
 };
 
-export default Layout;
+export default withStyleFix(withTheme(Layout));
