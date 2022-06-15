@@ -1,6 +1,6 @@
 {
   "name": "rcm-package-test",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Functional components build for RCM project",
   "scripts": {
     "build": "rollup -c",
