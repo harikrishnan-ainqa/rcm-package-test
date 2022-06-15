@@ -6,7 +6,7 @@ import {
     Route
   } from "react-router-dom";
   
-import { SignIn, Profile,CustLayout,HelloWorld } from 'functional-components-boilerplate';
+import { Card,HelloWorld } from 'rcm-package-test';
 
 const App = ()  => {
 
@@ -16,25 +16,16 @@ const App = ()  => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={
-                    <CustLayout>
-                         <SignIn 
-                            authContext={ AuthContext } 
-                            authUrl={ `${mockAPI}/auth` }
-                        />
-                    </CustLayout>
+            <Card
+                cardTitle="A card title"
+                cardTitleType="card option"
+                toolTip
+              ></Card>
                   } 
                 />
                 <Route path="/hello-world" element={
                         <HelloWorld/>
                   } 
-                />
-                <Route path="/profile" element={
-                     <CustLayout>
-                        <Profile
-                        profileURL={ `${mockAPI}/profile` } 
-                    />
-                    </CustLayout>
-                }
                 />
             </Routes>
         </BrowserRouter>
