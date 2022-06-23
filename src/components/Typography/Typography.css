@@ -1,7 +1,0 @@
-.required {
-  color: var(--error);
-  padding-left: 2px;
-}
-.errorText {
-  color: var(--error) !important;
-}

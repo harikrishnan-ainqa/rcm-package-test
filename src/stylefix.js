@@ -4,7 +4,6 @@ import { StylesProvider, createGenerateClassName } from "@material-ui/core";
 const withStyleFix = (Component) => (props) => {
   const generateClassName = createGenerateClassName({
     productionPrefix: "fcb", //Change it based on the package
-    seed: "fcb", //Change it based on the package
   });
 
   return (

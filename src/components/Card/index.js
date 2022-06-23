@@ -1,23 +1,21 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Typography from '../Typography';
+import Typography from '@material-ui/core/Typography';
 import './card.css';
 
 
 const Card = (props) => {
+  const theme=useTheme();
   const { children, cardTitleType, cardTitle, optionalHeader, toolTip } = props;
   return (
     <div className={`${toolTip && 'tooltipHold'} mainLayout`}>
       <Grid container>
         <Grid container item justifyContent="space-between">
           <Grid item>
-            <Typography
-              type={cardTitleType}
-              text={cardTitle}
-              colorType="primary"
-              customClass={`${toolTip && 'tooltipHead'} cardTitle`}
-            />
+            <Typography variant="h6"
+              style={{ color: theme?.palette.text.secondary, textAlign: "center", fontWeight: 500 }}>
+              Hello {cardTitle}</Typography>
           </Grid>
           <Grid className="optionalhead" item>
             {optionalHeader}

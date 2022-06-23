@@ -1,34 +1,26 @@
 import React from 'react';
-import { AuthContext, AuthProvider } from './contexts/authContext';
 import {
-    BrowserRouter,
-    Routes,
+    Switch,
     Route
-  } from "react-router-dom";
-  
-import { Card,HelloWorld } from 'rcm-package-test';
+} from "react-router-dom";
+import { Card, HelloWorld, Layout } from 'rcm-package-test';
 
-const App = ()  => {
-
-    const mockAPI = 'http://localhost:3000'
-
+const App = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={
-            <Card
-                cardTitle="A card title"
-                cardTitleType="card option"
-                toolTip
-              ></Card>
-                  } 
-                />
-                <Route path="/hello-world" element={
-                        <HelloWorld/>
-                  } 
-                />
-            </Routes>
-        </BrowserRouter>
+        <Switch>
+            <Route exact path="/" render={(props)=>{
+               return(
+                   <Layout {...props}>
+                       <Card />
+                   </Layout>
+               )
+            }}/>
+            <Route exact path="/hello-world">
+                <Layout>
+                    <HelloWorld />
+                </Layout>
+            </Route>
+        </Switch>
     );
 }
 
