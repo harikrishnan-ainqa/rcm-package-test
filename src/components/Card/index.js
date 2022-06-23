@@ -3,7 +3,8 @@ import { Grid, useTheme } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import './card.css';
-
+// import { getMessageCatlogValue } from 'atp-multilingual'
+// import { checkWithIdm } from 'atp-casbin'
 
 const Card = (props) => {
   const theme=useTheme();
@@ -13,15 +14,20 @@ const Card = (props) => {
       <Grid container>
         <Grid container item justifyContent="space-between">
           <Grid item>
-            <Typography variant="h6"
+            {/* {checkWithIdm("card_title_typography") &&
+              <Typography variant="h6"
               style={{ color: theme?.palette.text.secondary, textAlign: "center", fontWeight: 500 }}>
-              Hello {cardTitle}</Typography>
+                Hello World
+            </Typography>
+            } */}
+            <Typography variant="h6" style={{ color: theme?.palette.text.secondary, textAlign: "center", fontWeight: 500 }}>
+                Hello World
+            </Typography>
           </Grid>
           <Grid className="optionalhead" item>
             {optionalHeader}
           </Grid>
         </Grid>
-
         {children}
       </Grid>
     </div>

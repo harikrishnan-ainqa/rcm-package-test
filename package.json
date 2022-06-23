@@ -34,6 +34,8 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
+    "atp-casbin": "^1.0.1",
+    "atp-multilingual": "^1.0.1",
     "prop-types": "^15.8.1"
   }
 }
