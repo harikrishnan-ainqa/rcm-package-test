@@ -280,7 +280,6 @@ export default withStyleFix(withTheme(HelloWorld));
 
 1. Run ```npm run dev``` to live-test the components 
 
-
 ## To package and test the created component in a external react project 
 
 To bundle and test in local follow below steps.  Make sure you have run the npm run build command or npm start before testing.
@@ -304,7 +303,6 @@ const App = () => {
 export default App;
 
 ```
-
 ## To publish the package to NPM
 
 To publish the package to NPM follow the below setps
@@ -332,13 +330,3 @@ For further more details refere the below link
  - [ ] Access control for the components
  - [ ] Multilingual setup for the components
   
-
-## Changelog
-
-### 14-06-22
-- Boiler Plate created
-- Basic instructions to use this boilerplate (README.md) added
-
-### 15-06-22
-- Configured the theme setup & the style fix for the material ui components. 
-- Updated the ```Steps to bring the functional components to the UI Builder``` & ```Functional Component Structure``` in the readme file
