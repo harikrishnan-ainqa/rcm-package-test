@@ -59,7 +59,6 @@ const NestedNavbar = (props) => {
                                     style={{ height: "auto", width: parentItem?.parentSize ?? 16 + "px" }}
                                 />
                             </ListItemIcon>
-
                             <ListItemText primary={parentItem?.parentName} />
                             {open[`panel${index}`] ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>

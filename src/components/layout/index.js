@@ -111,7 +111,7 @@ const Layout = (props) => {
   const [openSidebar, setOpenSidebar] = React.useState(false);
 
   const classes = useStyles({ ...props, openSidebar });
-  const { sidebar, sidebarType, navItems, language } = props;
+  const { sidebar, sidebarType, navItems, language, translate } = props;
 
   const [selectedLang, setSelectedLang] = React.useState(localStorage?.selectedLang ?? "en");
   const [languages, setLanguages] = React.useState([]);
@@ -213,6 +213,7 @@ const Layout = (props) => {
       onMouseDown={props?.onMouseDown}
       onMouseOver={props?.onMouseOver}
       onMouseOut={props?.onMouseOut}
+      id={props?.id}
       data-id={props?.["data-id"]}
       data-name={props?.["data-name"]}
     >
@@ -224,7 +225,7 @@ const Layout = (props) => {
           <Typography variant="caption" className="version">
             {`V.${localStorage.version ?? 0.1}`}
           </Typography>
-          <Box className={classes.layout_translate}>
+          {translate && <Box className={classes.layout_translate}>
             <TranslateIcon />
             <Select
               value={selectedLang}
@@ -239,7 +240,7 @@ const Layout = (props) => {
               })
               }
             </Select>
-          </Box>
+          </Box>}
           <Divider style={{ height: '20px' }} orientation={"vertical"} />
           <Box style={{ display: "grid" }}>
             <Typography variant="body1" >
@@ -301,8 +302,6 @@ Layout.defaultProps = {
         {
           name: "Login",
           pageId: "UyB59",
-          size: 16,
-          icon: "",
           page: "/login",
           masterLayoutId: "mQJ7V",
           childPageSelect: [],
