@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   layout_grid: {
     display: "grid",
-    marginTop: "63px"
+    // marginTop: "63px"
   },
   layout_withSidebar: {
     gridTemplateColumns: "250px 1fr",
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: (props) => props.sidebarType === "miniVariant" ? "0px 10px 25px #0000000A" : theme.shadows[1],
     zIndex: 1,
-    display: "fixed",
+    // display: "fixed",
     width: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "56px" : "250px",
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.easeInOut,
@@ -67,10 +67,10 @@ const useStyles = makeStyles((theme) => ({
   },
   layout_nav_wrapper: {
     padding: `${theme.spacing(2)}px 0px 0px 0px`,
-    position: "fixed",
+    // position: "fixed",
     width: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "56px" : "250px",
     overflowX: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "hidden" : "visible",
-    left: 0,
+    // left: 0,
     height: "max-content"
   },
   layout_sidebar_fixed: {
@@ -208,7 +208,7 @@ const Layout = (props) => {
 
   return (
     <Box className={classes.layout}>
-      <AppBar elevation={1} position="fixed" className={classes.layout_appbar}>
+      <AppBar elevation={1} position="static" className={classes.layout_appbar}>
         <Typography variant="h6" component={"h1"}>
           {props?.projectTitle}
         </Typography>
@@ -282,7 +282,7 @@ Layout.defaultProps = {
   sidebar: true,
   translate: true,
   navbarType: "nestedList", //nestedList
-  sidebarType: "miniVariant",//miniVariant or static
+  sidebarType: "static",//miniVariant or static
   language: ["English", "Tamil", "Telugu"],
   navItems: [
     {
