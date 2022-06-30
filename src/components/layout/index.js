@@ -17,66 +17,66 @@ import TranslateIcon from '@material-ui/icons/Translate';
 
 
 const useStyles = makeStyles((theme) => ({
-  layout:{
-    display:"grid",
+  layout: {
+    display: "grid",
   },
-  layout_appbar:{
-    display:"flex",
-    flexDirection:"row",
-    justifyContent:"space-between",
+  layout_appbar: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: "10px 20px",
-    alignItems:"center",
+    alignItems: "center",
     "& h1": {
       fontWeight: 500
     }
   },
-  layout_appbar_right:{
+  layout_appbar_right: {
     display: "flex",
     alignItems: "center",
     gap: "24px",
-    "& .version":{
-      fontSize:"12px"
+    "& .version": {
+      fontSize: "12px"
     }
   },
-  layout_grid:{
-    display:"grid",
-    marginTop:"63px"
+  layout_grid: {
+    display: "grid",
+    marginTop: "63px"
   },
-  layout_withSidebar:{
+  layout_withSidebar: {
     gridTemplateColumns: "250px 1fr",
   },
-  layout_withMiniSidebar:{
+  layout_withMiniSidebar: {
     gridTemplateColumns: "56px 1fr"
   },
   layout_aside: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: (props) => props.sidebarType === "miniVariant" ? "0px 10px 25px #0000000A" : theme.shadows[1],
     zIndex: 1,
-    display:"fixed",
+    display: "fixed",
     width: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "56px" : "250px",
-    transition:theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.easeInOut,
       duration: theme.transitions.duration.standard,
     }),
   },
-  layout_main:{
-    padding:theme.spacing(2),
+  layout_main: {
+    padding: theme.spacing(2),
     backgroundColor: theme.palette.grey[100],
-    minHeight:"90vh",
-    overflow:"auto"
+    minHeight: "90vh",
+    overflow: "auto"
   },
-  layout_nav_wrapper:{
+  layout_nav_wrapper: {
     padding: `${theme.spacing(2)}px 0px 0px 0px`,
-    position:"fixed",
+    position: "fixed",
     width: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "56px" : "250px",
     overflowX: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "hidden" : "visible",
-    left:0,
-    height:"max-content"
+    left: 0,
+    height: "max-content"
   },
-  layout_sidebar_fixed:{
+  layout_sidebar_fixed: {
     top: "63px",
-    backgroundColor:"white",
-    flex:"1 0 auto",
+    backgroundColor: "white",
+    flex: "1 0 auto",
     height: "100%",
     display: "flex",
     outline: 0,
@@ -84,22 +84,22 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     overflowY: "auto",
   },
-  layout_translate:{
-    display:"flex",
-    gap:theme.spacing(1),
-    alignItems:"center",
-    "& .MuiSvgIcon-root":{
-      width:theme.spacing(2),
+  layout_translate: {
+    display: "flex",
+    gap: theme.spacing(1),
+    alignItems: "center",
+    "& .MuiSvgIcon-root": {
+      width: theme.spacing(2),
     },
-    "& .MuiSelect-root":{
+    "& .MuiSelect-root": {
       color: theme.palette.primary.contrastText,
-      fontSize:theme.spacing(2)
+      fontSize: theme.spacing(2)
     },
-    "& .MuiInput-underline:before":{
-      border:"none",
-      content:"none"
+    "& .MuiInput-underline:before": {
+      border: "none",
+      content: "none"
     },
-    "& .MuiSelect-icon":{
+    "& .MuiSelect-icon": {
       color: theme.palette.primary.contrastText
     }
   }
@@ -107,13 +107,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Layout = (props) => {
-  
+
   const [openSidebar, setOpenSidebar] = React.useState(false);
 
   const classes = useStyles({ ...props, openSidebar });
   const { sidebar, sidebarType, navItems, language } = props;
 
-  const [selectedLang, setSelectedLang] = React.useState(localStorage?.selectedLang??"en");
+  const [selectedLang, setSelectedLang] = React.useState(localStorage?.selectedLang ?? "en");
   const [languages, setLanguages] = React.useState([]);
 
   const languageCodes = {
@@ -154,11 +154,11 @@ const Layout = (props) => {
     Urdu: "ur",
     Vietnamese: "vi",
   };
- 
-  console.log(props,"props")
+
+  console.log(props, "props")
 
   const LayoutClick = (val) => {
-   if(!props?.history) return;
+    if (!props?.history) return;
     props.history.push(val?.page);
   };
 
@@ -169,42 +169,42 @@ const Layout = (props) => {
   };
 
   const navBarTypes = {
-    list: Navbar, 
+    list: Navbar,
     nestedList: NestedNavbar,
   };
 
-  const handleSidebarOpen=()=>{
+  const handleSidebarOpen = () => {
     setOpenSidebar(true);
   }
-  const handleSidebarClose=()=>{
+  const handleSidebarClose = () => {
     setOpenSidebar(false);
   }
 
-  function renderNavBar(){
+  function renderNavBar() {
     const NavBarType = navBarTypes[props?.navbarType];
     return (
       <NavBarType
         navItems={navItems}
         LayoutClick={LayoutClick}
         openSidebar={openSidebar}
-        history={props?.history ??null}
+        history={props?.history ?? null}
         sidebarType={props?.sidebarType}
       />
     )
-}
- 
-React.useEffect(() => {
-      //Set the languages based on the lanuage from the props
-      let languageFromProps = language ?? [];
-      let result = languageFromProps.reduce((acc, curr) => {
-        let data = {
-          label: curr,
-          value: languageCodes[curr] ?? "",
-        };
-        return [...acc, data];
-      }, []);
-      setLanguages(result);
- }, [language]);
+  }
+
+  React.useEffect(() => {
+    //Set the languages based on the lanuage from the props
+    let languageFromProps = language ?? [];
+    let result = languageFromProps.reduce((acc, curr) => {
+      let data = {
+        label: curr,
+        value: languageCodes[curr] ?? "",
+      };
+      return [...acc, data];
+    }, []);
+    setLanguages(result);
+  }, [language]);
 
   return (
     <Box className={classes.layout}>
@@ -214,37 +214,37 @@ React.useEffect(() => {
         </Typography>
         <Box className={classes.layout_appbar_right}>
           <Typography variant="caption" className="version">
-            {`V.${props?.version}`}
+            {`V.${localStorage.version ?? 0.1}`}
           </Typography>
           <Box className={classes.layout_translate}>
-            <TranslateIcon/>
+            <TranslateIcon />
             <Select
               value={selectedLang}
               onChange={handleChangeLang}
               displayEmpty
               IconComponent={ExpandMoreIcon}
-            >        
-            {languages.map((lang, index) => {
+            >
+              {languages.map((lang, index) => {
                 return (
                   <MenuItem key={index} value={lang.value}>{lang?.label}</MenuItem>
                 );
               })
-              }          
+              }
             </Select>
           </Box>
-          <Divider style={{height:'20px'}} orientation={"vertical"}/>
-          <Box style={{display:"grid"}}>
+          <Divider style={{ height: '20px' }} orientation={"vertical"} />
+          <Box style={{ display: "grid" }}>
             <Typography variant="body1" >
-             {props?.title}
+              {props?.title}
             </Typography>
             <Typography variant="caption" >
               {props?.subTitle}
             </Typography>
           </Box>
-          <Box style={{display:"flex",alignItems:"center",gap:"8px"}}>
+          <Box style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Avatar
-              alt="Remy Sharp"
-              src={props?.imageSrc}
+              alt="User"
+              src={props?.userImage}
               variant={"rounded"}
             >
               {props?.Title?.split("")[0]}
@@ -254,37 +254,36 @@ React.useEffect(() => {
         </Box>
       </AppBar>
       <Box className={clsx(
-        classes.layout_grid, 
-        sidebar && sidebarType==="static"&& classes.layout_withSidebar,
-        sidebar && sidebarType==="miniVariant" && classes.layout_withMiniSidebar
-         )}>
-       {sidebar && 
+        classes.layout_grid,
+        sidebar && sidebarType === "static" && classes.layout_withSidebar,
+        sidebar && sidebarType === "miniVariant" && classes.layout_withMiniSidebar
+      )}>
+        {sidebar &&
           <aside className={classes.layout_aside} onMouseEnter={handleSidebarOpen} onMouseLeave={handleSidebarClose}>
-          <Box className={classes.layout_nav_wrapper}>
+            <Box className={classes.layout_nav_wrapper}>
               {renderNavBar()}
-          </Box>
-        </aside>
+            </Box>
+          </aside>
         }
         <main className={classes.layout_main}>
           {props?.children}
         </main>
-     </Box>
+      </Box>
     </Box>
   );
 };
 
 Layout.defaultProps = {
   projectTitle: "RCM",
-  version: "0.1",
   title: "Martha Richards",
   subTitle: "Pharmacist, Apollo Hospital",
-  imageSrc:
+  userImage:
     "https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?cs=srgb&dl=pexels-tu%E1%BA%A5n-ki%E1%BB%87t-jr-1382731.jpg&fm=jpg",
   sidebar: true,
   translate: true,
   navbarType: "nestedList", //nestedList
-  sidebarType:"miniVariant",//miniVariant or static
-  language:["English","Tamil","Telugu"],
+  sidebarType: "miniVariant",//miniVariant or static
+  language: ["English", "Tamil", "Telugu"],
   navItems: [
     {
       parentName: "Masters",
