@@ -88,18 +88,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     gap: theme.spacing(1),
     alignItems: "center",
-    "& .rcm-MuiSvgIcon-root": {
+    "& .MuiSvgIcon-root": {
       width: theme.spacing(2),
     },
-    "& .rcm-MuiSelect-root": {
+    "& .MuiSelect-root": {
       color: theme.palette.primary.contrastText,
       fontSize: theme.spacing(2)
     },
-    "& .rcm-MuiInput-underline:before": {
+    "& .MuiInput-underline:before": {
       border: "none",
       content: "none"
     },
-    "& .rcm-MuiSelect-icon": {
+    "& .MuiSelect-icon": {
       color: theme.palette.primary.contrastText
     }
   }
@@ -225,7 +225,7 @@ const Layout = (props) => {
           <Typography variant="caption" className="version">
             {`V.${localStorage.version ?? 0.1}`}
           </Typography>
-          {translate && <Box className={classes.layout_translate}>
+          <Box className={classes.layout_translate}>
             <TranslateIcon />
             <Select
               value={selectedLang}
@@ -240,7 +240,7 @@ const Layout = (props) => {
               })
               }
             </Select>
-          </Box>}
+          </Box>
           <Divider style={{ height: '20px' }} orientation={"vertical"} />
           <Box style={{ display: "grid" }}>
             <Typography variant="body1" >
@@ -347,4 +347,4 @@ Layout.defaultProps = {
   ],
 };
 
-export default withStyleFix(withTheme(Layout));
+export default withTheme(Layout);
