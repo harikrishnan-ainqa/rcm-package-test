@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -14,14 +14,14 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
     nestedNavList: {
-        "& .MuiListItem-button:hover": {
+        "& .rcm-MuiListItem-button:hover": {
             backgroundColor: theme.palette.grey[100]
         }
     },
-    nestedNavList_collapse:{
+    nestedNavList_collapse: {
         padding: `0px ${theme.spacing(2)}px 0px ${theme.spacing(2)}px`,
-        "& .MuiListItem-button":{
-            borderRadius:theme.borderRadius[3]
+        "& .rcm-MuiListItem-button": {
+            borderRadius: theme.borderRadius[3]
         }
     }
 }));
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const NestedNavbar = (props) => {
 
     const classes = useStyles();
-    const { navItems,sidebarType,LayoutClick, openSidebar } = props;
+    const { navItems, sidebarType, LayoutClick, openSidebar } = props;
 
     const [open, setOpen] = React.useState({});
 
@@ -44,22 +44,22 @@ const NestedNavbar = (props) => {
     useEffect(() => {
         setOpen({})
     }, [openSidebar])
-    
+
 
     return (
         <List className={classes.nestedNavList}>
-            {navItems.map((parentItem,index) => {
+            {navItems.map((parentItem, index) => {
                 return (
-                   <>
+                    <>
                         <ListItem key={index} onClick={() => handleOpen(`panel${index}`)} button>
                             <ListItemIcon>
                                 <Avatar
                                     variant="square"
                                     src={parentItem?.parentIcon}
-                                    style={{ height: "auto", width: parentItem?.parentSize??16 + "px" }}
+                                    style={{ height: "auto", width: parentItem?.parentSize ?? 16 + "px" }}
                                 />
                             </ListItemIcon>
-                                
+
                             <ListItemText primary={parentItem?.parentName} />
                             {open[`panel${index}`] ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
@@ -67,11 +67,11 @@ const NestedNavbar = (props) => {
                             <Navbar
                                 openSidebar={openSidebar}
                                 sidebarType={props?.sidebarType}
-                                navItems={parentItem.navItems} 
-                                history={props?.history??null}
-                                LayoutClick={LayoutClick}/>
+                                navItems={parentItem.navItems}
+                                history={props?.history ?? null}
+                                LayoutClick={LayoutClick} />
                         </Collapse>
-                   </>
+                    </>
                 )
             })}
         </List>

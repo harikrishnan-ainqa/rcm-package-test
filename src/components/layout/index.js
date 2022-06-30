@@ -88,18 +88,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     gap: theme.spacing(1),
     alignItems: "center",
-    "& .MuiSvgIcon-root": {
+    "& .rcm-MuiSvgIcon-root": {
       width: theme.spacing(2),
     },
-    "& .MuiSelect-root": {
+    "& .rcm-MuiSelect-root": {
       color: theme.palette.primary.contrastText,
       fontSize: theme.spacing(2)
     },
-    "& .MuiInput-underline:before": {
+    "& .rcm-MuiInput-underline:before": {
       border: "none",
       content: "none"
     },
-    "& .MuiSelect-icon": {
+    "& .rcm-MuiSelect-icon": {
       color: theme.palette.primary.contrastText
     }
   }
@@ -348,4 +348,4 @@ Layout.defaultProps = {
   ],
 };
 
-export default withTheme(Layout);
+export default withStyleFix(withTheme(Layout));

@@ -10,47 +10,47 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
-    navlist:{
-        "& .MuiListItem-button:hover":{
-         backgroundColor:theme.palette.grey[100]   
+    navlist: {
+        "& .rcm-MuiListItem-button:hover": {
+            backgroundColor: theme.palette.grey[100]
         },
-        "& .MuiListItem-root":{
+        "& .rcm-MuiListItem-root": {
         }
     },
-    navitem_active:{
+    navitem_active: {
         backgroundColor: theme.palette.primary.light
     }
 }));
 
 
-const Navbar=(props)=>{
+const Navbar = (props) => {
     const classes = useStyles(props);
-    const { navItems, LayoutClick, sidebarType, openSidebar }=props;
-    return(
+    const { navItems, LayoutClick, sidebarType, openSidebar } = props;
+    return (
         <List className={classes.navlist}>
-            {navItems.length> 0 && navItems.map((item)=>{
-                console.log(props?.history?.location?.pathname , item.page)
-                return(
+            {navItems.length > 0 && navItems.map((item) => {
+                console.log(props?.history?.location?.pathname, item.page)
+                return (
                     <ListItem key={item?.pageId} button onClick={() => LayoutClick(item)} className={clsx(props?.history?.location?.pathname === item.page && classes.navitem_active)}>
                         <ListItemIcon>
-                        {
-                            item?.icon?.length > 2 ? (
-                            <Avatar
-                                variant="square"
-                                src={item?.icon}
-                                style={{ height: "auto", width: item?.size??16 + "px" }}
-                            />
-                            )
-                            :(
-                                <LinkIcon/>
-                            )
-                        }
+                            {
+                                item?.icon?.length > 2 ? (
+                                    <Avatar
+                                        variant="square"
+                                        src={item?.icon}
+                                        style={{ height: "auto", width: item?.size ?? 16 + "px" }}
+                                    />
+                                )
+                                    : (
+                                        <LinkIcon />
+                                    )
+                            }
                         </ListItemIcon>
-                        {(sidebarType==="miniVariant" && openSidebar) && <ListItemText primary={item?.name} />}
-                        {sidebarType!=="miniVariant" && <ListItemText primary={item?.name} />}
+                        {(sidebarType === "miniVariant" && openSidebar) && <ListItemText primary={item?.name} />}
+                        {sidebarType !== "miniVariant" && <ListItemText primary={item?.name} />}
                     </ListItem>
                 )
-            }) }
+            })}
         </List>
     )
 }
