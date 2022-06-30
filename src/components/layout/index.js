@@ -348,4 +348,4 @@ Layout.defaultProps = {
   ],
 };
 
-export default withStyleFix(withTheme(Layout));
+export default withTheme(Layout);
