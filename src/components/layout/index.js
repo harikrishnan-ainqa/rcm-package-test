@@ -207,7 +207,15 @@ const Layout = (props) => {
   }, [language]);
 
   return (
-    <Box className={classes.layout}>
+    <Box
+      className={clsx(classes.layout, props?.className)}
+      onClick={props?.onClick}
+      onMouseDown={props?.onMouseDown}
+      onMouseOver={props?.onMouseOver}
+      onMouseOut={props?.onMouseOut}
+      data-id={props?.["data-id"]}
+      data-name={props?.["data-name"]}
+    >
       <AppBar elevation={1} position="static" className={classes.layout_appbar}>
         <Typography variant="h6" component={"h1"}>
           {props?.projectTitle}
