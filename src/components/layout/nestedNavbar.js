@@ -14,13 +14,13 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
     nestedNavList: {
-        "& .MuiListItem-button:hover": {
+        "& .rcm-MuiListItem-button:hover": {
             backgroundColor: theme.palette.grey[100]
         }
     },
     nestedNavList_collapse: {
         padding: `0px ${theme.spacing(2)}px 0px ${theme.spacing(2)}px`,
-        "& .MuiListItem-button": {
+        "& .rcm-MuiListItem-button": {
             borderRadius: theme.borderRadius[3]
         }
     }
