@@ -3,7 +3,7 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import { Card, HelloWorld, Layout } from 'rcm-package-test';
+import { Layout } from 'rcm-package-test';
 
 const App = () => {
     return (
@@ -11,15 +11,10 @@ const App = () => {
             <Route exact path="/" render={(props) => {
                 return (
                     <Layout {...props}>
-                        <Card />
+                        <p>Master Layout</p>
                     </Layout>
                 )
             }} />
-            <Route exact path="/hello-world">
-                <Layout>
-                    <HelloWorld />
-                </Layout>
-            </Route>
         </Switch>
     );
 }
