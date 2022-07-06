@@ -113,7 +113,7 @@ const Layout = (props) => {
   const classes = useStyles({ ...props, openSidebar });
   const { sidebar, sidebarType, navItems, language, translate } = props;
 
-  const [selectedLang, setSelectedLang] = React.useState(localStorage?.selectedLang ?? "en");
+  const [selectedLang, setSelectedLang] = React.useState(localStorage?.language ?? "English");
   const [languages, setLanguages] = React.useState([]);
 
   const languageCodes = {
@@ -155,7 +155,6 @@ const Layout = (props) => {
     Vietnamese: "vi",
   };
 
-  console.log(props, "props")
 
   const LayoutClick = (val) => {
     if (!props?.history) return;
@@ -165,7 +164,9 @@ const Layout = (props) => {
   const handleChangeLang = (event) => {
     setSelectedLang(event.target.value);
     //set to localstorage
+    localStorage.setItem('language', event.target.value)
     //Reload the page
+    window.location.reload(false);
   };
 
   const navBarTypes = {
@@ -199,7 +200,7 @@ const Layout = (props) => {
     let result = languageFromProps.reduce((acc, curr) => {
       let data = {
         label: curr,
-        value: languageCodes[curr] ?? "",
+        value: curr ?? "",
       };
       return [...acc, data];
     }, []);

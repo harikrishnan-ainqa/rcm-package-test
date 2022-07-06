@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from 'clsx';
+import { messageCatalogGetter } from "../../utils/common/function";
 
 const useStyles = makeStyles((theme) => ({
     navlist: {
@@ -46,8 +47,8 @@ const Navbar = (props) => {
                                     )
                             }
                         </ListItemIcon>
-                        {(sidebarType === "miniVariant" && openSidebar) && <ListItemText primary={item?.name} />}
-                        {sidebarType !== "miniVariant" && <ListItemText primary={item?.name} />}
+                        {(sidebarType === "miniVariant" && openSidebar) && <ListItemText primary={messageCatalogGetter(item?.name) ?? item?.name} />}
+                        {sidebarType !== "miniVariant" && <ListItemText primary={messageCatalogGetter(item?.name) ?? item?.name} />}
                     </ListItem>
                 )
             })}

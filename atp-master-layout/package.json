@@ -35,7 +35,8 @@
   },
   "dependencies": {
     "atp-casbin": "^1.0.1",
-    "atp-multilingual": "^1.0.3",
+    "atp-multilingual": "^1.0.4",
+    "axios": "^0.27.2",
     "prop-types": "^15.8.1"
   }
 }

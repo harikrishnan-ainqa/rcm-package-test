@@ -11,6 +11,7 @@ import Navbar from "./navbar";
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import { messageCatalogGetter } from "../../utils/common/function";
 
 const useStyles = makeStyles((theme) => ({
     nestedNavList: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     nestedNavList_collapse: {
         padding: `0px ${theme.spacing(2)}px 0px ${theme.spacing(2)}px`,
-        "& .rcm-MuiListItem-button": {
+        "& .rcm-    MuiListItem-button": {
             borderRadius: theme.borderRadius[3]
         }
     }
@@ -59,7 +60,7 @@ const NestedNavbar = (props) => {
                                     style={{ height: "auto", width: parentItem?.parentSize ?? 16 + "px" }}
                                 />
                             </ListItemIcon>
-                            <ListItemText primary={parentItem?.parentName} />
+                            <ListItemText primary={messageCatalogGetter(parentItem?.parentName) ?? parentItem?.parentName} />
                             {open[`panel${index}`] ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <Collapse className={classes.nestedNavList_collapse} in={open[`panel${index}`]} timeout="auto" unmountOnExit>
