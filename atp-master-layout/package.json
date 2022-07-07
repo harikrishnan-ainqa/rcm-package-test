@@ -1,6 +1,6 @@
 {
   "name": "atp-master-layout",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Functional components build for RCM project",
   "scripts": {
     "build": "rollup -c",
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "atp-casbin": "^1.0.1",
-    "atp-multilingual": "^1.0.4",
+    "atp-multilingual": "^1.0.6",
     "axios": "^0.27.2",
     "prop-types": "^15.8.1"
   }
