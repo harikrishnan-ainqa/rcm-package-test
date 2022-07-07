@@ -38,6 +38,7 @@
     "@reduxjs/toolkit": "^1.8.2",
     "atp-login-binder": "^1.0.5",
     "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "formik": "^2.2.9",
     "md5": "^2.3.0",
     "react-redux": "^8.0.2",

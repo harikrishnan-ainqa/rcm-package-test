@@ -11,7 +11,7 @@
 
  dotenv.config();
  
- let Config = {};
+ let  Config = {};
  
  Config.api_url = process.env.REACT_APP_ARANGO_API;
  Config.keylock_url = process.env.REACT_APP_KEY_CLOCK_API;
