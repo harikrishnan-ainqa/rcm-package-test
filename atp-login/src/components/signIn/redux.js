@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { rootReducer as reducer } from "frequencyscreen_v_dbinder";
+import { rootReducer as reducer } from "atp-login-binder";
 
 export const store = configureStore({
   reducer

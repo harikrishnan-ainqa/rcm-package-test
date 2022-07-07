@@ -3,7 +3,7 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import { Layout } from 'rcm-package-test';
+import { Layout } from 'atp-master-layout';
 
 const App = () => {
     return (

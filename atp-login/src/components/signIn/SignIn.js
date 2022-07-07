@@ -12,7 +12,7 @@ import {
 	DialogTitle,
 } from "@material-ui/core";
 import { LocalStorageKeys } from "../../utils";
-import { actions } from "frequencyscreen_v_dbinder";
+import { actions } from "atp-login-binder";
 import config from "../../utils/config";
 import LocationRoles from "./locationRole";
 import { useDispatch } from "react-redux";

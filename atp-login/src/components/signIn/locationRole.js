@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useDispatch } from "react-redux";
-import { actions } from "frequencyscreen_v_dbinder";
+import { actions } from "atp-login-binder";
 
 const useStyles = makeStyles({
   root: {
@@ -339,24 +339,24 @@ const LocationRoles = (props) => {
       {(practitionerCode === "OT001" ||
         practitionerCode === "OT002" ||
         practitionerCode === "OT003") && (
-        <Grid className={classes.align}>
-          <Typography className={classes.heading}>Facility</Typography>
-          <Autocomplete
-            id="combo-box-demo"
-            size={"small"}
-            options={optionsData?.facilityList ?? []}
-            value={state?.facility}
-            onChange={(e, newValue) =>
-              handleDropdown(newValue, "facility", ["facility", "location"])
-            }
-            getOptionLabel={(option) => option?.name}
-            style={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} variant="outlined" />
-            )}
-          />
-        </Grid>
-      )}
+          <Grid className={classes.align}>
+            <Typography className={classes.heading}>Facility</Typography>
+            <Autocomplete
+              id="combo-box-demo"
+              size={"small"}
+              options={optionsData?.facilityList ?? []}
+              value={state?.facility}
+              onChange={(e, newValue) =>
+                handleDropdown(newValue, "facility", ["facility", "location"])
+              }
+              getOptionLabel={(option) => option?.name}
+              style={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} variant="outlined" />
+              )}
+            />
+          </Grid>
+        )}
       {/* FACILITY END */}
       {/* Location START */}
       {practitionerCode && (
