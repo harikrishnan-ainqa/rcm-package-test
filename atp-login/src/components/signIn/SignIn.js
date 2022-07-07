@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "center",
 		justifyContent: "center",
 		padding: 20,
-		backgroundColor: "#F3F6FF",
+		backgroundColor: theme.palette.grey[100],
 	},
 	columnSection: {
 		justifyContent: "center",
@@ -215,7 +215,7 @@ const SignIn = (props) => {
 			console.log("=====================================================================")
 			console.log(e)
 			console.log("=====================================================================")
-		 }
+		}
 
 		//localStorage.setItem("token", btoa(JSON.stringify(keyClock?.data)));
 		// let basicRoute = basicRouters;
@@ -595,10 +595,11 @@ const SignIn = (props) => {
 					<Grid></Grid>
 					<Grid item xs={12} className={classes.headerSection}>
 						<Typography variant="h6" color="primary">
-							CLMM
-							<span style={{ paddingLeft: 5, fontSize: 10 }}>
-								v: {localStorage.getItem(LocalStorageKeys.version)}
-							</span>
+							Sign In
+
+							{/* <span style={{ paddingLeft: 5, fontSize: 10 }}>
+								v: {localStorage.getItem(LocalStorageKeys.version) ?? 0.1}
+							</span> */}
 						</Typography>
 					</Grid>
 
