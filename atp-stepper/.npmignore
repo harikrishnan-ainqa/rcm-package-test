@@ -1,6 +1,3 @@
-.babelrc
-.storybook
-.gitignore
-.prettierrc
-tsconfig.json
-playground
+*
+!dist/ 
+!package.json 
