@@ -1,4 +1,8 @@
-*
-!dist/ 
-!package.json 
-!rollup.config.js
+.babelrc
+.storybook
+.gitignore
+.prettierrc
+tsconfig.json
+playground/
+publish.sh
+README.md
