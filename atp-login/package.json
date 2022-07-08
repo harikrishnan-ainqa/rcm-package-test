@@ -1,6 +1,6 @@
 {
   "name": "atp-login",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "common login page",
   "scripts": {
     "build": "rollup -c",
