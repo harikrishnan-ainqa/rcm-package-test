@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     nestedNavList_collapse: {
         padding: `0px ${theme.spacing(2)}px 0px ${theme.spacing(2)}px`,
-        "& .rcm-    MuiListItem-button": {
+        "& .rcm-MuiListItem-button": {
             borderRadius: theme.borderRadius[3]
         }
     }
