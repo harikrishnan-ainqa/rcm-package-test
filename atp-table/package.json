@@ -1,6 +1,6 @@
 {
   "name": "atp-table",
-  "version": "1.0.16",
+  "version": "1.0.19",
   "description": "Functional components build for RCM project",
   "scripts": {
     "build": "rollup -c",
