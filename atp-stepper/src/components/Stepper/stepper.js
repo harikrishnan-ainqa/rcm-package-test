@@ -12,7 +12,7 @@ import { Box } from "@material-ui/core";
 import TestComp from "../testcomp/comptest";
 import Grid from '@material-ui/core/Grid';
 import { Divider } from '@material-ui/core';
-import { postData } from "funcomp-databinder"
+import { postData } from "atp-stepper-binders"
 
 const useStyles = (props) =>
   makeStyles((theme) => ({
@@ -197,7 +197,7 @@ export default function PositionBelowStepper(props) {
 
             <Grid item md={2} xs={12}>
              
-             {console.log("activeStep" , activeStep)}
+             
               {activeStep !== undefined ?
                <Typography style={{ marginTop: 20, fontWeight: "bold" , fontSize:18  }}>{stepsHeader[activeStep].title}</Typography>
                :

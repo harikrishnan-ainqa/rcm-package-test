@@ -15,7 +15,7 @@ import { Paper } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import { CustomTablePagination } from "./tablePagination";
 //import axios from "axios";
-import { getData } from "funcomp-databinder"
+import { getData } from "atp-table-binders"
 
 
 

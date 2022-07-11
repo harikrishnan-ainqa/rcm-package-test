@@ -3,7 +3,7 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import { MuiStepper } from "rcm-stepper";
+import { MuiStepper } from "atp-stepper";
 
 const App = () => {
     return (

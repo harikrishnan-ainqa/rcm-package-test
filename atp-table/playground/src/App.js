@@ -3,7 +3,7 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import { TableMui } from "rcm-muitable";
+import { TableMui } from "atp-table";
 
 const App = () => {
     return (
