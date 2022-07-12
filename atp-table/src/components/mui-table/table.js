@@ -273,6 +273,8 @@ const useStyles = makeStyles((theme) => ({
         columnData,
     } = formState;
 
+    
+
     const handleUserInput = value => {
 
         setFormState({
@@ -329,6 +331,7 @@ const useStyles = makeStyles((theme) => ({
     ));
 
     return (
+      <div {...props}>
         <Grid className={classes.rootTable}>
             <Grid item xs={12}>
                 <Paper className={classes.rootTable}>
@@ -432,7 +435,7 @@ const useStyles = makeStyles((theme) => ({
                 </Paper>
             </Grid>
         </Grid>
-
+      </div>
     )
 }
 
