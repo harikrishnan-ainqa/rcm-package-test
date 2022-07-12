@@ -13,6 +13,9 @@ import TestComp from "../testcomp/comptest";
 import Grid from '@material-ui/core/Grid';
 import { Divider } from '@material-ui/core';
 import { postData } from "atp-stepper-binders"
+import withTheme from '../../themeProvider';
+import withStyleFix from "../../stylefix";
+
 
 const useStyles = (props) =>
   makeStyles((theme) => ({
@@ -73,8 +76,8 @@ ComponentPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-export default function PositionBelowStepper(props) {
-  const classes = useStyles(props);
+const  PositionBelowStepper = (props) => {
+  const classes = useStyles({ ...props });
 
  
   const {
@@ -87,12 +90,6 @@ export default function PositionBelowStepper(props) {
     bodyRequired,
   } = props;
   const [activeStep, setActiveStep] = React.useState(value);
-
-  //StyleProvider Class Provider
-  const generateClassName = createGenerateClassName({
-    productionPrefix: "custom-material-ui-component",
-    seed: "custom-material-ui-component",
-  });
 
   React.useEffect(() => {
     if (!value) {
@@ -189,7 +186,7 @@ export default function PositionBelowStepper(props) {
 
   return (
     <div {...props}>
-      <StylesProvider generateClassName={generateClassName} injectFirst>
+     
         <div className={classes.root}>
 
 
@@ -296,7 +293,7 @@ export default function PositionBelowStepper(props) {
           </Grid>
 
         </div>
-      </StylesProvider>
+      
     </div>
   );
 }
@@ -331,3 +328,5 @@ PositionBelowStepper.defaultProps = {
   isControlleRequired : true,
   bodyRequired : true
 }
+
+export default withStyleFix(withTheme(PositionBelowStepper));

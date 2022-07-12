@@ -3,8 +3,8 @@ import { StylesProvider, createGenerateClassName } from "@material-ui/core/style
 
 const withStyleFix = (Component) => (props) => {
   const generateClassName = createGenerateClassName({
-    productionPrefix: "rcm",
-    seed: "rcm",
+    productionPrefix: "table",
+    seed: "table",
   });
 
   return (
