@@ -193,19 +193,29 @@ const  PositionBelowStepper = (props) => {
           <Grid container justifyContent="center" style={{ backgroundColor: "#fff" }}>
 
             <Grid item md={2} xs={12}>
-             
-             
-              {activeStep !== undefined ?
-               <Typography style={{ marginTop: 20, fontWeight: "bold" , fontSize:18  }}>{stepsHeader[activeStep].title}</Typography>
-               :
-               null
-              }
-            
+              {(() => {
+
+                if(activeStep !== undefined)
+                {                
+                  if(stepsHeader)
+                  {                  
+                    return(                      
+                   <Typography style={{ marginTop: 20, fontWeight: "bold" , fontSize:18  }}>{stepsHeader[activeStep].title}</Typography>                          
+                   )
+                  }
+                  else{                  
+                    null
+                  }
+                }
+                else{  
+                  null
+                }
+              })()}
+               
             </Grid>
          
-
-      
-            <Divider orientation="vertical" flexItem />
+               {stepsHeader ?  <Divider orientation="vertical" flexItem /> : null}
+           
         
           
             <Grid item md={6} xs={12}>
