@@ -7,11 +7,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 
 
 
-
-export default function TestComp1(props)
-{
-
-
+export default function TestComp2(props){
 return(
 
  <Paper style={{marginBottom:"20px" ,padding:"10px" ,  marginTop:"20px"}}>
@@ -34,6 +30,16 @@ return(
       <FormLabel> Carbs</FormLabel>
       <br />
       <TextField size="small" type="number" id="outlined-basic" name="carbs" onChange={props.onTextChange} value={props.inputValue.carbs} variant="outlined" />
+      </Grid>
+      <Grid item md={4}>
+      <FormLabel> Fat</FormLabel>
+      <br />
+      <TextField size="small"  type="number" id="outlined-basic" name="fat" onChange={props.onTextChange} value={props.inputValue.fat} variant="outlined" />
+      </Grid>
+      <Grid item md={4}>
+      <FormLabel> Protein</FormLabel>
+      <br />
+      <TextField size="small"  type="number" id="outlined-basic" name="protein" onChange={props.onTextChange} value={props.inputValue.protein} variant="outlined" />
       </Grid>
       </Grid>
       

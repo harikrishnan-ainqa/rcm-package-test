@@ -4,7 +4,7 @@ import {
     Routes,
     Route
 } from "react-router-dom";
-import { Login } from 'atp-login';
+import { Login } from 'atp-login-components';
 
 const App = (props) => {
     const basicRouters = ["/frequency", "/pharmacy", "/pharmacyverify"];
