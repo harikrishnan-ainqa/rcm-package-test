@@ -1,6 +1,6 @@
 {
   "name": "atp-stepper",
-  "version": "1.0.17",
+  "version": "1.0.21",
   "description": "Functional components build for RCM project",
   "scripts": {
     "build": "rollup -c",
@@ -36,7 +36,7 @@
   "dependencies": {
     "atp-casbin": "^1.0.1",
     "atp-multilingual": "^1.0.6",
-    "atp-stepper-binders": "^1.0.1",
+    "atp-stepper-binders": "^1.0.2",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "formik": "^2.2.9",

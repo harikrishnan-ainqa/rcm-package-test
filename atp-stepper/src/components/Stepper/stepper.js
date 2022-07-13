@@ -9,8 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import { StylesProvider, createGenerateClassName } from '@material-ui/core'
 import { Box } from '@material-ui/core'
-import TestComp1 from '../testcomp/comptest'
-import TestComp2 from '../testcomp/comptesttwo'
+import TestComp from '../testcomp/comptest'
 import Grid from '@material-ui/core/Grid'
 import { Divider } from '@material-ui/core'
 import { postData } from 'atp-stepper-binders'
@@ -113,14 +112,13 @@ const PositionBelowStepper = (props) => {
 
   const getStepContent = (stepIndex) => {
     return stepsHeader?.map((v, i) => {
-      console.log(v)
       return (
         <ComponentPanel key={i} {...v} value={stepIndex} index={i}>
-          {/* <TestComp2
+          <TestComp
             inputValue={inputvalue}
             onTextChange={onTextChange}
             index={stepIndex}
-          /> */}
+          />
           {v?.body?.componentName ? v.body.componentName + ' Mapped' : v?.body}
         </ComponentPanel>
       )
@@ -147,12 +145,10 @@ const PositionBelowStepper = (props) => {
 
   //for handling Reset
   const onTextClick = (index) => {
-    debugger
-    console.log(props?.onhandleTextClick)
-    // if (props?.onhandleTextClick) {
-    // props?.onhandleTextClick(index);
-    setActiveStep(index)
-    // }
+    if (props?.onhandleTextClick) {
+      props?.onhandleTextClick(index)
+      setActiveStep(index)
+    }
   }
 
   const handleSubmit = async () => {
@@ -188,16 +184,34 @@ const PositionBelowStepper = (props) => {
           style={{ backgroundColor: '#fff' }}
         >
           <Grid item md={2} xs={12}>
-            {activeStep !== undefined ? (
-              <Typography
-                style={{ marginTop: 20, fontWeight: 'bold', fontSize: 18 }}
-              >
-                {stepsHeader[activeStep].title}
-              </Typography>
-            ) : null}
+            {(() => {
+              if (activeStep !== undefined) {
+                if (stepsHeader.length > 0) {
+                  if (stepsHeader[activeStep].title !== undefined || null) {
+                    return (
+                      <Typography
+                        style={{
+                          marginTop: 20,
+                          fontWeight: 'bold',
+                          fontSize: 18,
+                        }}
+                      >
+                        {stepsHeader[activeStep].title}
+                      </Typography>
+                    )
+                  }
+                } else {
+                  null
+                }
+              } else {
+                null
+              }
+            })()}
           </Grid>
 
-          <Divider orientation="vertical" flexItem />
+          {stepsHeader.length > 0 ? (
+            <Divider orientation="vertical" flexItem />
+          ) : null}
 
           <Grid item md={6} xs={12}>
             <Stepper
@@ -290,18 +304,17 @@ PositionBelowStepper.defaultProps = {
       fullWidth: true,
       body: {
         component: true,
-        componentName: 'stepperbody1',
+        componentName: 'stepperbody',
         componentId: 'NArPT',
       },
     },
-
     {
       title: 'Add new  Code',
       header: 'Base Price and cost price',
       fullWidth: true,
       body: {
         component: true,
-        componentName: 'stepperbody2',
+        componentName: 'stepperbody',
         componentId: 'NArPT',
       },
     },
