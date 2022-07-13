@@ -114,11 +114,11 @@ const PositionBelowStepper = (props) => {
     return stepsHeader?.map((v, i) => {
       return (
         <ComponentPanel key={i} {...v} value={stepIndex} index={i}>
-          <TestComp
+          {/* <TestComp
             inputValue={inputvalue}
             onTextChange={onTextChange}
             index={stepIndex}
-          />
+          /> */}
           {v?.body?.componentName ? v.body.componentName + ' Mapped' : v?.body}
         </ComponentPanel>
       )
