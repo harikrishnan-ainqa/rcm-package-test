@@ -90,6 +90,7 @@ const PositionBelowStepper = (props) => {
   const [activeStep, setActiveStep] = React.useState(value)
 
   React.useEffect(() => {
+  
     if (!value) {
       setActiveStep(0)
     } else {
@@ -185,8 +186,11 @@ const PositionBelowStepper = (props) => {
         >
           <Grid item md={2} xs={12}>
             {(() => {
-              if (activeStep !== undefined) {
+
+              if (![null , "" , undefined].includes(activeStep)) {
+         
                 if (stepsHeader.length > 0) {
+                  
                   if (stepsHeader[activeStep].title !== undefined || null) {
                     return (
                       <Typography
@@ -283,11 +287,11 @@ const PositionBelowStepper = (props) => {
         <Grid item md={12}>
           <Grid container justifyContent="center">
             <Grid item md={12}>
-              {bodyRequired && (
+            
                 <div className={classes.instructions}>
                   {getStepContent(activeStep)}
                 </div>
-              )}
+              
             </Grid>
           </Grid>
         </Grid>
@@ -299,7 +303,7 @@ const PositionBelowStepper = (props) => {
 PositionBelowStepper.defaultProps = {
   stepsHeader: [
     {
-      title: 'Add new Charge Code',
+   
       header: 'Charge Definition',
       fullWidth: true,
       body: {
@@ -309,7 +313,7 @@ PositionBelowStepper.defaultProps = {
       },
     },
     {
-      title: 'Add new  Code',
+      
       header: 'Base Price and cost price',
       fullWidth: true,
       body: {
@@ -321,7 +325,7 @@ PositionBelowStepper.defaultProps = {
   ],
   //steperTitle:"Add New Charge Code",
   isControlleRequired: true,
-  bodyRequired: true,
+  value :""
 }
 
 export default withStyleFix(withTheme(PositionBelowStepper))
