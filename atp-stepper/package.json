@@ -1,6 +1,6 @@
 {
   "name": "atp-stepper",
-  "version": "1.0.21",
+  "version": "1.0.24",
   "description": "Functional components build for RCM project",
   "scripts": {
     "build": "rollup -c",

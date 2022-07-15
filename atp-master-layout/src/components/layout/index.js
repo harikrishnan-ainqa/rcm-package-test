@@ -1,20 +1,20 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Avatar from "@material-ui/core/Avatar";
-import withTheme from '../../themeProvider';
+import withTheme from "../../themeProvider";
 import withStyleFix from "../../stylefix";
-import Divider from '@material-ui/core/Divider';
-import clsx from 'clsx';
+import Divider from "@material-ui/core/Divider";
+import clsx from "clsx";
 import Navbar from "./navbar";
 import NestedNavbar from "./nestedNavbar";
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import TranslateIcon from '@material-ui/icons/Translate';
-
+import Select from "@material-ui/core/Select";
+import TranslateIcon from "@material-ui/icons/Translate";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -27,16 +27,16 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 20px",
     alignItems: "center",
     "& h1": {
-      fontWeight: 500
-    }
+      fontWeight: 500,
+    },
   },
   layout_appbar_right: {
     display: "flex",
     alignItems: "center",
     gap: "24px",
     "& .version": {
-      fontSize: "12px"
-    }
+      fontSize: "12px",
+    },
   },
   layout_grid: {
     display: "grid",
@@ -46,15 +46,21 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: "250px 1fr",
   },
   layout_withMiniSidebar: {
-    gridTemplateColumns: "56px 1fr"
+    gridTemplateColumns: "56px 1fr",
   },
   layout_aside: {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: (props) => props.sidebarType === "miniVariant" ? "0px 10px 25px #0000000A" : theme.shadows[1],
-    zIndex: 1,
+    boxShadow: (props) =>
+      props.sidebarType === "miniVariant"
+        ? "0px 10px 25px #0000000A"
+        : theme.shadows[1],
+    zIndex: 1200,
     // display: "fixed",
-    width: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "56px" : "250px",
-    transition: theme.transitions.create(['width', 'margin'], {
+    width: (props) =>
+      props.sidebarType === "miniVariant" && !props.openSidebar
+        ? "56px"
+        : "250px",
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.easeInOut,
       duration: theme.transitions.duration.standard,
     }),
@@ -63,15 +69,21 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     backgroundColor: theme.palette.grey[100],
     minHeight: "90vh",
-    overflow: "auto"
+    overflow: "auto",
   },
   layout_nav_wrapper: {
     padding: `${theme.spacing(2)}px 0px 0px 0px`,
     // position: "fixed",
-    width: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "56px" : "250px",
-    overflowX: (props) => props.sidebarType === "miniVariant" && !props.openSidebar ? "hidden" : "visible",
+    width: (props) =>
+      props.sidebarType === "miniVariant" && !props.openSidebar
+        ? "56px"
+        : "250px",
+    overflowX: (props) =>
+      props.sidebarType === "miniVariant" && !props.openSidebar
+        ? "hidden"
+        : "visible",
     // left: 0,
-    height: "max-content"
+    height: "max-content",
   },
   layout_sidebar_fixed: {
     top: "63px",
@@ -93,27 +105,29 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .rcm-MuiSelect-root": {
       color: theme.palette.primary.contrastText,
-      fontSize: theme.spacing(2)
+      fontSize: theme.spacing(2),
     },
     "& .rcm-MuiInput-underline:before": {
       border: "none",
-      content: "none"
+      content: "none",
     },
     "& .rcm-MuiSelect-icon": {
-      color: theme.palette.primary.contrastText
-    }
-  }
+      color: theme.palette.primary.contrastText,
+    },
+  },
 }));
 
-
 const Layout = (props) => {
-
   const [openSidebar, setOpenSidebar] = React.useState(false);
 
   const classes = useStyles({ ...props, openSidebar });
   const { sidebar, sidebarType, navItems, language, translate } = props;
 
-  const [selectedLang, setSelectedLang] = React.useState(localStorage?.language ?? "English");
+  const [selectedLang, setSelectedLang] = React.useState(
+    localStorage?.language ?? "English"
+  );
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const [languages, setLanguages] = React.useState([]);
 
   const languageCodes = {
@@ -155,7 +169,6 @@ const Layout = (props) => {
     Vietnamese: "vi",
   };
 
-
   const LayoutClick = (val) => {
     if (!props?.history) return;
     props.history.push(val?.page);
@@ -164,9 +177,22 @@ const Layout = (props) => {
   const handleChangeLang = (event) => {
     setSelectedLang(event.target.value);
     //set to localstorage
-    localStorage.setItem('language', event.target.value)
+    localStorage.setItem("language", event.target.value);
     //Reload the page
     window.location.reload(false);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
   };
 
   const navBarTypes = {
@@ -176,10 +202,10 @@ const Layout = (props) => {
 
   const handleSidebarOpen = () => {
     setOpenSidebar(true);
-  }
+  };
   const handleSidebarClose = () => {
     setOpenSidebar(false);
-  }
+  };
 
   function renderNavBar() {
     const NavBarType = navBarTypes[props?.navbarType];
@@ -191,9 +217,8 @@ const Layout = (props) => {
         history={props?.history ?? null}
         sidebarType={props?.sidebarType}
       />
-    )
+    );
   }
-
   React.useEffect(() => {
     //Set the languages based on the lanuage from the props
     let languageFromProps = language ?? [];
@@ -223,9 +248,11 @@ const Layout = (props) => {
           {props?.projectTitle}
         </Typography>
         <Box className={classes.layout_appbar_right}>
-          <Typography variant="caption" className="version">
-            {`V.${localStorage.version ?? 0.1}`}
-          </Typography>
+          {localStorage?.version && localStorage?.version !== "undefined" && (
+            <Typography variant="caption" className="version">
+              {localStorage?.version}
+            </Typography>
+          )}
           <Box className={classes.layout_translate}>
             <TranslateIcon />
             <Select
@@ -236,48 +263,57 @@ const Layout = (props) => {
             >
               {languages.map((lang, index) => {
                 return (
-                  <MenuItem key={index} value={lang.value}>{lang?.label}</MenuItem>
+                  <MenuItem key={index} value={lang.value}>
+                    {lang?.label}
+                  </MenuItem>
                 );
-              })
-              }
+              })}
             </Select>
           </Box>
-          <Divider style={{ height: '20px' }} orientation={"vertical"} />
+          <Divider style={{ height: "20px" }} orientation={"vertical"} />
           <Box style={{ display: "grid" }}>
-            <Typography variant="body1" >
-              {props?.title}
-            </Typography>
-            <Typography variant="caption" >
-              {props?.subTitle}
-            </Typography>
+            <Typography variant="body1">{props?.title}</Typography>
+            <Typography variant="caption">{props?.subTitle}</Typography>
           </Box>
           <Box style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Avatar
-              alt="User"
-              src={props?.userImage}
-              variant={"rounded"}
-            >
+            <Avatar alt="User" src={props?.userImage} variant={"rounded"}>
               {props?.Title?.split("")[0]}
             </Avatar>
-            <ExpandMoreIcon style={{ color: "#fff" }} />
+            <ExpandMoreIcon
+              style={{ color: "#fff", cursor: "pointer" }}
+              onClick={handleMenu}
+            />
+            <Menu
+              id="menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
           </Box>
         </Box>
       </AppBar>
-      <Box className={clsx(
-        classes.layout_grid,
-        sidebar && sidebarType === "static" && classes.layout_withSidebar,
-        sidebar && sidebarType === "miniVariant" && classes.layout_withMiniSidebar
-      )}>
-        {sidebar &&
-          <aside className={classes.layout_aside} onMouseEnter={handleSidebarOpen} onMouseLeave={handleSidebarClose}>
-            <Box className={classes.layout_nav_wrapper}>
-              {renderNavBar()}
-            </Box>
+      <Box
+        className={clsx(
+          classes.layout_grid,
+          sidebar && sidebarType === "static" && classes.layout_withSidebar,
+          sidebar &&
+            sidebarType === "miniVariant" &&
+            classes.layout_withMiniSidebar
+        )}
+      >
+        {sidebar && (
+          <aside
+            className={classes.layout_aside}
+            onMouseEnter={handleSidebarOpen}
+            onMouseLeave={handleSidebarClose}
+          >
+            <Box className={classes.layout_nav_wrapper}>{renderNavBar()}</Box>
           </aside>
-        }
-        <main className={classes.layout_main}>
-          {props?.children}
-        </main>
+        )}
+        <main className={classes.layout_main}>{props?.children}</main>
       </Box>
     </Box>
   );
@@ -292,7 +328,7 @@ Layout.defaultProps = {
   sidebar: true,
   translate: true,
   navbarType: "nestedList", //nestedList
-  sidebarType: "miniVariant",//miniVariant or static
+  sidebarType: "miniVariant", //miniVariant or static
   language: ["English", "Tamil", "Telugu"],
   navItems: [
     {

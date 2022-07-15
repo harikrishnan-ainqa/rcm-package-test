@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.2.1",
     "formik": "file:../node_modules/formik",
     "history": "^5.1.0",
-    "atp-multilingual": "file:..",
+    "atp-master-layout": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
     "react-router-dom": "^5.2.0",

@@ -37,6 +37,7 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@reduxjs/toolkit": "^1.8.2",
     "atp-login-binder": "^1.0.6",
+    "atp-login-components": "^0.0.11",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "formik": "^2.2.9",
