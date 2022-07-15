@@ -252,7 +252,7 @@ const useStyles = makeStyles((theme) => ({
 
     const getResponse = async () => {
 
-        var URl = "http://164.52.210.54:8080";
+        var URl = "https://arangodbservice.dev.ainqaplatform.in";
         var db_name = "Ainqa2";
         var entity = "TableData";
         let data = await getData(URl,db_name, entity);
