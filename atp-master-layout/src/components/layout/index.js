@@ -121,7 +121,15 @@ const Layout = (props) => {
   const [openSidebar, setOpenSidebar] = React.useState(false);
 
   const classes = useStyles({ ...props, openSidebar });
-  const { sidebar, sidebarType, navItems, language, translate } = props;
+  const {
+    sidebar,
+    sidebarType,
+    navItems,
+    language,
+    translate,
+    homePath,
+    loginPath,
+  } = props;
 
   const [selectedLang, setSelectedLang] = React.useState(
     localStorage?.language ?? "English"
@@ -192,7 +200,7 @@ const Layout = (props) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.reload();
+    props.history.push(loginPath);
   };
 
   const navBarTypes = {
@@ -244,7 +252,15 @@ const Layout = (props) => {
       data-name={props?.["data-name"]}
     >
       <AppBar elevation={1} position="static" className={classes.layout_appbar}>
-        <Typography variant="h6" component={"h1"}>
+        <Typography
+          variant="h6"
+          component={"h1"}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            if (!props?.history) return;
+            props.history.push(homePath);
+          }}
+        >
           {props?.projectTitle}
         </Typography>
         <Box className={classes.layout_appbar_right}>
@@ -382,6 +398,8 @@ Layout.defaultProps = {
       ],
     },
   ],
+  homePath: "/",
+  loginPath: "/login",
 };
 
 export default withStyleFix(withTheme(Layout));
