@@ -640,10 +640,7 @@ Generalmaster.defaultProps = {
         { label: '20 Rows', value: 20 },
         { label: '30 Rows', value: 30 },
     ],
-    URl: "https://arangodbservice.dev.ainqaplatform.in",
-    db_name: "ipmo",
-    metadataId:"8fd7c4c8-706a-4edc-ab27-534cb7e9ad8a",
-    metadata_dbname:"ATP_Platform_DEV"
+   
     
 
 }
