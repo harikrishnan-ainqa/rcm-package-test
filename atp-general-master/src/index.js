@@ -1,2 +1,2 @@
 
-export { default as GeneralMaster } from './components/GeneralMaster/table';
+export { default as GeneralMaster } from './screen/GeneralMaster';

@@ -40,7 +40,7 @@ const styles = theme => ({
     marginTop: 4,
   },
   table: {
-    minWidth: 860,
+    minWidth: "85vh",
     border:"1px solid #f4f4f5"
   },
 

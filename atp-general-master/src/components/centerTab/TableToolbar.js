@@ -27,7 +27,7 @@ function TableToolbar(props) {
         showSearch,
         title,
         toolbar,
-        handleOpen
+        handleAnchorOpen
 
     } = props;
 
@@ -43,7 +43,7 @@ function TableToolbar(props) {
         <Grid item xs={12}>
             {toolbar ?
                 <Grid container className={classes.settings}>
-                    <Grid item xs={7}>
+                    <Grid item xs={10}>
                         <div className={classes.title}>
                             {showTitle ?
                                 <Typography variant="h6">{title}</Typography>
@@ -52,7 +52,7 @@ function TableToolbar(props) {
                             }
                         </div>
                     </Grid>
-                    <Grid item xs={2.5}>
+                    {/* <Grid item xs={2.5}>
                         {showSearch ?
                             <Toolbar
                                 className={classNames(classes.toolbar)}>
@@ -83,12 +83,12 @@ function TableToolbar(props) {
                             :
                             null}
 
-                    </Grid>
+                    </Grid> */}
 
-                    <Grid item xs={1.5}>
+                    <Grid item xs={2}>
                         {/* <div className={classes.spacer} /> */}
                         {showButton ?
-                            <Button className={classes.Button} variant="contained" style={{ backgroundColor:"#f33004"}} onClick={handleOpen} endIcon={<AddIcon style={{ color: "#fff" }} />}>
+                            <Button className={classes.Buttonstyle} variant="contained" color="primary" onClick={handleAnchorOpen} endIcon={<AddIcon style={{ color: "#fff" }} />}>
                                 <span style={{ fontSize: "14px", textTransform: "capitalize", fontWeight: "bold", color: "#fff" }}>Add New</span>
                             </Button>
                             :
