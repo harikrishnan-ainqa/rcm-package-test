@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CenterTab from '../components/centerTab/table';
 import RightTab from '../components/rightTab/RightTab';
 //import { AinqaRequestSend } from "ainqa-request";
-import axios from"axios";
+import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -270,7 +270,74 @@ const useStyles = makeStyles((theme) => ({
         padding: "11px 19px",
         border: "1px solid #e5dddd",
         borderRadius: "5px"
-    }
+    },
+    iconLabelWrapper2: {
+        display:"flex",
+        flexDirection: "row-reverse",
+        justifyContent: "space-between"
+      },
+      tabIconStyle:{
+   fontSize:"20px",
+   float:"right"
+
+      },
+      labelContainer: {
+        width: "auto",
+        padding: 0
+      },
+      inputstyle1: {
+        padding: "11px 19px",
+        border: "1px solid #e5dddd",
+        borderRadius: "5px",
+        width: "300px"
+
+    },
+    spaninp: {
+
+        color: "#f70404"
+    },
+
+
+    Addnewbutton: {
+        float: "right"
+
+    },
+
+    content: {
+        marginTop: "10px",
+        marginLeft: "10px"
+    },
+    labelStyle: {
+
+        fontSize: "13px !important"
+    },
+    drawerstyle: {
+        overflow: "hidden",
+        width: "400px"
+    },
+    titleStyle: {
+        fontSize: "16px",
+        fontWeight: "bold",
+        marginLeft: "10px"
+    },
+    gridstyle: {
+
+        marginBottom: "20px",
+        marginLeft: "10px"
+    },
+    btnstyl: {
+
+        textAlign: "center"
+
+    },
+    editiconstyle:{
+        fontSize:"18px",
+        cursor: "pointer"
+        
+          },
+          contentStyle:{
+            overflowX:"hidden"
+          }
 }))
 
 function Generalmaster(props) {
@@ -278,13 +345,13 @@ function Generalmaster(props) {
     const [gmfilter, setgmfilter] = useState("");
     const [value, setValue] = React.useState(0);
     const [gmdata, setgmData] = useState([]);
-    const [columnType , setColumnType] = useState([]);
-    const [editTable , setEditTable] = useState(false);
-    const [editvalue , setEditValue] = useState([]);
+    const [columnType, setColumnType] = useState([]);
+    const [editTable, setEditTable] = useState(false);
+    const [editvalue, setEditValue] = useState([]);
     const [openModel, setOpenModel] = useState(false);
-    const [AnchorEl , setAnchorE1] = useState(false)
+    const [AnchorEl, setAnchorE1] = useState(false)
     const [ModelEditValue, setModelEditValue] = useState([])
-    const [EditModel, setEditModel] = useState(true)
+    const [EditModel, setEditModel] = useState(false)
     const [formState, setFormState] = useState({
         order: props.order,
         orderBy: props.orderBy,
@@ -309,9 +376,6 @@ function Generalmaster(props) {
         title: props.title,
         rowsPerPageOptions: props.rowsPerPageOptions,
     })
-  
-
-
 
     useEffect(() => {
         getResponse();
@@ -320,77 +384,71 @@ function Generalmaster(props) {
     }, []);
 
     const getResponse = async () => {
-        const { URl, db_name} = props;
+        const { URl, db_name } = props;
         let payload = {
             db_name: db_name,
             entity: "GMdefinition",
             filter: "GMdefinition.activestatus==true",
-            sort:"GMdefinition.gentype",
+            sort: "GMdefinition.gentype",
             return_fields: "merge(GMdefinition,{additionalcolumns:(for ad in to_array(GMdefinition.additionalcolumns) return merge(ad,{columntype:document(ad.columntype)}))})"
 
         }
-
         await axios
-        .post(`${URl}/api/read_documents`, payload)
-        .then(async (response) => {
-            if (response?.data?.Code === 201) {
-                setgmData(response?.data?.result) 
-                const selecteddata = response?.data?.result[value];
-                getCurrentData(selecteddata.gentype);
-            } 
-            else {
-            }
-        })
-
-        
+            .post(`${URl}/api/read_documents`, payload)
+            .then(async (response) => {
+                if (response?.data?.Code === 201) {
+                    setgmData(response?.data?.result)
+                    const selecteddata = response?.data?.result[value];
+                    getCurrentData(selecteddata.gentype);
+                }
+                else {
+                }
+            })
     }
 
 
     const getQdmType = async () => {
-
         let payload = {
             db_name: props.db_name,
             entity: "CodingMaster",
-            filter:  "CodingMaster.Type=='QDMDATATYPE' && CodingMaster.activestatus==true && CodingMaster.status==true",
+            filter: "CodingMaster.Type=='QDMDATATYPE' && CodingMaster.activestatus==true && CodingMaster.status==true",
             return_fields: "KEEP(CodingMaster,'_id','id','_key','code','display','Type')"
 
         }
         await axios
-        .post(`${props.URl}/api/read_documents`, payload)
-        .then(async (response) => {
-            if (response?.data?.Code === 201) {
-                setColumnType(response?.data?.result) 
-               
-            } 
-            else {
-            }
-        })
+            .post(`${props.URl}/api/read_documents`, payload)
+            .then(async (response) => {
+                if (response?.data?.Code === 201) {
+                    setColumnType(response?.data?.result)
+
+                }
+                else {
+                }
+            })
     }
 
     const getCurrentData = async (newValue) => {
-
         let payloadvalue = {
             db_name: props.db_name,
             entity: "CodeableConceptMaster",
-            sort:"document(CodeableConceptMaster.coding[0]).display",
-            filter:  `CodeableConceptMaster.Type=="${newValue}" && CodeableConceptMaster.activestatus==true`,
+            sort: "document(CodeableConceptMaster.coding[0]).display",
+            filter: `CodeableConceptMaster.Type=="${newValue}" && CodeableConceptMaster.activestatus==true`,
             return_fields: "MERGE(CodeableConceptMaster,{coding:document(CodeableConceptMaster.coding)})"
         }
 
         await axios
-        .post(`${props.URl}/api/read_documents`, payloadvalue)
-        .then(async (response) => {
-            if (response?.data?.Code === 201) {
-                setFormState({ ...formState, data: response?.data?.result, title: newValue }) 
-               
-            } 
-            else {
-            }
-        })
-        
+            .post(`${props.URl}/api/read_documents`, payloadvalue)
+            .then(async (response) => {
+                if (response?.data?.Code === 201) {
+                    setFormState({ ...formState, data: response?.data?.result, title: newValue })
+
+                }
+                else {
+                }
+            })
+
     }
     const handleOpen = () => {
-        
         setOpenModel(true);
     };
     const handleClose = () => {
@@ -404,13 +462,11 @@ function Generalmaster(props) {
     };
 
     const handlegmFilterChange = (e) => {
-
         const datassss = gmdata.filter(item => {
             return Object.keys(item).some(key =>
                 item[key].toString().toLowerCase().includes(e.target.value.toLowerCase())
             );
         })
-
         if (datassss !== undefined) {
             if (datassss && datassss.length > 0) {
                 getCurrentData(datassss[0].gentype)
@@ -420,43 +476,33 @@ function Generalmaster(props) {
                 getCurrentData("")
             }
         }
-
         setgmfilter(e.target.value.toLowerCase());
     }
 
     const handleAnchorClose = () => {
-
         setAnchorE1(false);
         setEditTable(false);
         setEditValue([]);
-
     }
 
     const handleAnchorOpen = () => {
-       
         setAnchorE1(true);
-        
     }
 
     const EditAnchorOpen = (data) => {
-
         setEditValue(data);
         setEditTable(true);
         setAnchorE1(true);
     }
 
     const EditModelopen = (data) => {
-      
         setModelEditValue(data);
         setEditModel(true);
         setOpenModel(true);
-       
+
     }
 
     const handleCloseAdd = (title) => {
-
-
-       
         setAnchorE1(false);
         setEditTable(false);
         setEditValue([]);
@@ -464,125 +510,157 @@ function Generalmaster(props) {
 
     }
 
+    const handleCloseModal = (EditModel , response) => {
+       console.log("EditModel" , EditModel)
+        console.log("response" , response)
+        setModelEditValue([]);
+        setEditModel(false);
+        setOpenModel(false);
+        getlefttabValue(EditModel, response)
+    }
+
+const getlefttabValue = (EditModelvaleee , response) => {
+if(response.length > 0)
+{
+    if(EditModelvaleee === true)
+    {
+        const data = [...gmdata];
+        data.splice(data.findIndex(a => a._key === response[0].properties.doc._key) , 1)
+        data.push(response[0].properties.doc);
+        setgmData(data);
+        getCurrentData(response[0].properties.doc.gentype)
+    }
+    else{
+        const data = [...gmdata];
+        data.push(response[0].properties.doc);
+        setgmData(data)
+    }
+}
+
+}
+
+
     const handleUserInput = (toSearch) => {
         setFormState({
-          ...formState, filterText: toSearch.toLowerCase()
-    
+            ...formState, filterText: toSearch.toLowerCase()
+
         })
-      }
-      const handleRequestSort = (event, property) => {
+    }
+    const handleRequestSort = (event, property) => {
         const { orderBy, order, data } = formState
         const orderByConst = property
         let orderLet = 'desc'
-    
+
         if (orderBy === property && order === 'desc') {
-          orderLet = 'asc'
+            orderLet = 'asc'
         }
-    
+
         const dataConst =
-          orderLet === 'desc'
-            ? data.sort((a, b) => (b[orderByConst] < a[orderByConst] ? -1 : 1))
-            : data.sort((a, b) => (a[orderByConst] < b[orderByConst] ? -1 : 1))
-    
-        setFormState({
-          ...formState,
-          data: dataConst,
-          order: orderLet,
-          orderBy: orderByConst,
-        })
-      }
-    
-      const handlepageChange = (event) => {
-        //    const { data } = formState
+            orderLet === 'desc'
+                ? data.sort((a, b) => (b[orderByConst] < a[orderByConst] ? -1 : 1))
+                : data.sort((a, b) => (a[orderByConst] < b[orderByConst] ? -1 : 1))
 
-        console.log(event)
         setFormState({
-          ...formState,
-          page: event - 1,
+            ...formState,
+            data: dataConst,
+            order: orderLet,
+            orderBy: orderByConst,
         })
-      }
-    
-      const handleChangeRowsPerPage = (event) => {
-        setFormState({
-          ...formState,
-          rowsPerPage: event,
-        })
-      }
-   
+    }
 
-   
+    const handlepageChange = (event) => {
+        setFormState({
+            ...formState,
+            page: event - 1,
+        })
+    }
+
+    const handleChangeRowsPerPage = (event) => {
+        setFormState({
+            ...formState,
+            rowsPerPage: event,
+        })
+    }
+
+
+
 
     return (
         <div {...props}>
             <Grid container className={classes.rootTable} spacing={2}>
                 <Grid item xs={2}>
-                    <LeftTabs 
-                    handleChange={handleChange} 
-                    handlegmFilterChange={handlegmFilterChange} 
-                    gmdata={gmdata} 
-                    gmfilter={gmfilter} 
-                    handleOpen={handleOpen} 
-                    value={value} 
-                    getCurrentData={getCurrentData} 
-                    EditModelopen={EditModelopen} />
+                    <LeftTabs
+                        handleChange={handleChange}
+                        handlegmFilterChange={handlegmFilterChange}
+                        gmdata={gmdata}
+                        gmfilter={gmfilter}
+                        handleOpen={handleOpen}
+                        value={value}
+                        getCurrentData={getCurrentData}
+                        EditModelopen={EditModelopen}
+                        classes={classes} />
                 </Grid>
                 <Grid item xs={10}>
-                    <CenterTab 
-                    toolbar={props.toolbar} 
-                    value={value}
-                    showTitle={props.showTitle} 
-                    showSearch={props.showSearch} 
-                    showButton={props.showButton} 
-                    columnData={props.columnData} 
-                    rowsPerPage={formState.rowsPerPage} 
-                    rowsPerPageOptions={props.rowsPerPageOptions} 
-                    size={props.size}
-                    stripped={props.stripped}
-                    hovered={props.hovered}
-                    checkcell={props.checkcell}
-                    bordered={props.bordered}
-                    data={formState.data}
-                    formState={formState}
-                    handleOpen={handleOpen}
-                    page={formState.page}
-                    filterText ={props.filterText}
-                    title={formState.title}
-                    orderBy ={props.orderBy}
-                    handleAnchorOpen={handleAnchorOpen}
-                    pagination={props.pagination}
-                    EditAnchorOpen={EditAnchorOpen}
-                    handleUserInput={handleUserInput}
-                    handleRequestSort={handleRequestSort}
-                    handlepageChange={handlepageChange}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                    <CenterTab
+                        toolbar={props.toolbar}
+                        value={value}
+                        showTitle={props.showTitle}
+                        showSearch={props.showSearch}
+                        showButton={props.showButton}
+                        columnData={props.columnData}
+                        rowsPerPage={formState.rowsPerPage}
+                        rowsPerPageOptions={props.rowsPerPageOptions}
+                        size={props.size}
+                        stripped={props.stripped}
+                        hovered={props.hovered}
+                        checkcell={props.checkcell}
+                        bordered={props.bordered}
+                        data={formState.data}
+                        formState={formState}
+                        handleOpen={handleOpen}
+                        page={formState.page}
+                        filterText={props.filterText}
+                        title={formState.title}
+                        orderBy={props.orderBy}
+                        handleAnchorOpen={handleAnchorOpen}
+                        pagination={props.pagination}
+                        EditAnchorOpen={EditAnchorOpen}
+                        handleUserInput={handleUserInput}
+                        handleRequestSort={handleRequestSort}
+                        handlepageChange={handlepageChange}
+                        handleChangeRowsPerPage={handleChangeRowsPerPage}
+                        classes={classes} 
                     />
                 </Grid>
             </Grid>
-            <TestComp 
-            open={openModel} 
-            onClose={handleClose}  
-            getResponse={getResponse}
-            ModelEditValue={ModelEditValue}
-            EditModel={EditModel}
-            columnType={columnType}
-            URL={props.URl}
-            db_name={props.db_name}
-            metadataId={props.metadataId}
-            metadata_dbname={props.metadata_dbname}
-              />
+            <TestComp
+                open={openModel}
+                onClose={handleClose}
+                getResponse={getResponse}
+                ModelEditValue={ModelEditValue}
+                EditModel={EditModel}
+                columnType={columnType}
+                URL={props.URl}
+                db_name={props.db_name}
+                metadataId={props.metadataId}
+                metadata_dbname={props.metadata_dbname}
+                handleCloseModal={handleCloseModal}
+                classes={classes} 
+            />
 
-            <RightTab 
-            AnchorEl={AnchorEl} 
-            handleAnchorClose={handleAnchorClose} 
-            title={formState.title} 
-            editTable={editTable} 
-            editvalue={editvalue}
-            URL={props.URl}
-            db_name={props.db_name}
-            metadataId={props.metadataId}
-            metadata_dbname={props.metadata_dbname}
-            handleCloseAdd={handleCloseAdd}
-             />
+            <RightTab
+                AnchorEl={AnchorEl}
+                handleAnchorClose={handleAnchorClose}
+                title={formState.title}
+                editTable={editTable}
+                editvalue={editvalue}
+                URL={props.URl}
+                db_name={props.db_name}
+                metadataId={props.metadataId}
+                metadata_dbname={props.metadata_dbname}
+                handleCloseAdd={handleCloseAdd}
+                classes={classes} 
+            />
         </div>
     )
 
@@ -640,8 +718,8 @@ Generalmaster.defaultProps = {
         { label: '20 Rows', value: 20 },
         { label: '30 Rows', value: 30 },
     ],
-   
-    
+
+
 
 }
 
