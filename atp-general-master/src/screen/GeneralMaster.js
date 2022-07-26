@@ -272,20 +272,20 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "5px"
     },
     iconLabelWrapper2: {
-        display:"flex",
+        display: "flex",
         flexDirection: "row-reverse",
         justifyContent: "space-between"
-      },
-      tabIconStyle:{
-   fontSize:"20px",
-   float:"right"
+    },
+    tabIconStyle: {
+        fontSize: "20px",
+        float: "right"
 
-      },
-      labelContainer: {
+    },
+    labelContainer: {
         width: "auto",
         padding: 0
-      },
-      inputstyle1: {
+    },
+    inputstyle1: {
         padding: "11px 19px",
         border: "1px solid #e5dddd",
         borderRadius: "5px",
@@ -330,14 +330,14 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center"
 
     },
-    editiconstyle:{
-        fontSize:"18px",
+    editiconstyle: {
+        fontSize: "18px",
         cursor: "pointer"
-        
-          },
-          contentStyle:{
-            overflowX:"hidden"
-          }
+
+    },
+    contentStyle: {
+        overflowX: "hidden"
+    }
 }))
 
 function Generalmaster(props) {
@@ -495,6 +495,48 @@ function Generalmaster(props) {
         setAnchorE1(true);
     }
 
+    const EditStatus = async (dataArray) => {
+        const doc = {
+           
+            coding: [
+                {
+                    _key: dataArray.coding[0]._key,
+                    status: !dataArray.coding[0].status
+                  }
+            ],
+           
+            status: !dataArray.status
+        }
+
+        const payload = {
+            db_name: props.db_name,
+            entity: "CodeableConceptMaster",
+            is_metadata: true,
+            metadataId: props.metadataId,
+            metadata_dbname: props.metadata_dbname,
+            filter: {
+                "_key": dataArray._key
+            },
+            doc: doc
+        }
+        let datass = JSON.stringify([payload])
+
+        var config = {
+            method: 'post',
+            url: `${props.URl}/api/upsert_document`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: datass
+        }
+        await axios(config)
+            .then(async response => {
+                getCurrentData(dataArray.Type)
+            })
+
+    }
+
+
     const EditModelopen = (data) => {
         setModelEditValue(data);
         setEditModel(true);
@@ -510,34 +552,30 @@ function Generalmaster(props) {
 
     }
 
-    const handleCloseModal = (EditModel , response) => {
-       console.log("EditModel" , EditModel)
-        console.log("response" , response)
+    const handleCloseModal = (EditModel, response) => {
         setModelEditValue([]);
         setEditModel(false);
         setOpenModel(false);
         getlefttabValue(EditModel, response)
     }
 
-const getlefttabValue = (EditModelvaleee , response) => {
-if(response.length > 0)
-{
-    if(EditModelvaleee === true)
-    {
-        const data = [...gmdata];
-        data.splice(data.findIndex(a => a._key === response[0].properties.doc._key) , 1)
-        data.push(response[0].properties.doc);
-        setgmData(data);
-        getCurrentData(response[0].properties.doc.gentype)
-    }
-    else{
-        const data = [...gmdata];
-        data.push(response[0].properties.doc);
-        setgmData(data)
-    }
-}
+    const getlefttabValue = (EditModelvaleee, response) => {
+        if (response.length > 0) {
+            if (EditModelvaleee === true) {
+                const data = [...gmdata];
+                data.splice(data.findIndex(a => a._key === response[0].properties.doc._key), 1)
+                data.push(response[0].properties.doc);
+                setgmData(data);
+                getCurrentData(response[0].properties.doc.gentype)
+            }
+            else {
+                const data = [...gmdata];
+                data.push(response[0].properties.doc);
+                setgmData(data)
+            }
+        }
 
-}
+    }
 
 
     const handleUserInput = (toSearch) => {
@@ -629,7 +667,13 @@ if(response.length > 0)
                         handleRequestSort={handleRequestSort}
                         handlepageChange={handlepageChange}
                         handleChangeRowsPerPage={handleChangeRowsPerPage}
-                        classes={classes} 
+                        URL={props.URl}
+                        db_name={props.db_name}
+                        metadataId={props.metadataId}
+                        metadata_dbname={props.metadata_dbname}
+                        classes={classes}
+                        EditStatus={EditStatus}
+
                     />
                 </Grid>
             </Grid>
@@ -645,7 +689,7 @@ if(response.length > 0)
                 metadataId={props.metadataId}
                 metadata_dbname={props.metadata_dbname}
                 handleCloseModal={handleCloseModal}
-                classes={classes} 
+                classes={classes}
             />
 
             <RightTab
@@ -659,7 +703,7 @@ if(response.length > 0)
                 metadataId={props.metadataId}
                 metadata_dbname={props.metadata_dbname}
                 handleCloseAdd={handleCloseAdd}
-                classes={classes} 
+                classes={classes}
             />
         </div>
     )

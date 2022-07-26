@@ -46,7 +46,7 @@ function TabPanel(props) {
 const CenterTab = (props) => {
   //const classes = useStyles({ ...props })
 
-  const { toolbar, value, showTitle, classes , showSearch, showButton, columnData, page ,rowsPerPage, rowsPerPageOptions, size, stripped, hovered , checkcell, bordered, data, formState , filterText , title,  handleOpen  , orderBy , handleAnchorOpen , pagination , EditAnchorOpen , handleUserInput , handleRequestSort, handlepageChange, handleChangeRowsPerPage} = props
+  const { toolbar, value, showTitle, classes , showSearch, showButton, columnData, page ,rowsPerPage, rowsPerPageOptions, size, stripped, hovered , checkcell, bordered, data, formState , filterText , title,  handleOpen  , orderBy , handleAnchorOpen , pagination , EditAnchorOpen , handleUserInput , handleRequestSort, handlepageChange, handleChangeRowsPerPage ,EditStatus} = props
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
@@ -65,7 +65,7 @@ const CenterTab = (props) => {
           if(dataArray.coding.length > 0)
           {
           if (itemCell.id === "status") {
-            return <FormControlLabel control={<Switch checked={datasss[itemCell.id]} name="Status" />} />
+            return <FormControlLabel control={<Switch checked={datasss[itemCell.id]} onChange={(e) => EditStatus(dataArray)} name="Status" />} />
           }
 
           else if(itemCell.id === "Edit")

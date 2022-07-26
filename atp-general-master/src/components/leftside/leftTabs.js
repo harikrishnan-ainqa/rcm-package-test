@@ -52,7 +52,7 @@ const LeftTabs = (props) => {
                                      onClick={(e) => handleChange(datas)}
                                      classes={{
                                         wrapper: classes.iconLabelWrapper2,
-                                        labelContainer: classes.labelContainer
+                                        //labelContainer: classes.labelContainer
                                       }}  
                                       icon={<EditIcon className={classes.tabIconStyle}  onClick={(e) => EditModelopen(datas)}  />}
                                       label={datas.gentype} {...a11yProps(index)}>
