@@ -300,8 +300,15 @@ const Flexview = (props) => {
       return { metaData, obj, l };
     }
   }, [getQueryObject, props.data.querySchema, props.data.readquery]);
-  React.useLayoutEffect(async () => {
-    debugger;
+  React.useLayoutEffect( () => {
+
+    getFunc()
+   
+    
+  },[getFilterFormQuery, props]);
+
+  const getFunc = async () => {
+
     let { metaData } = getFilterFormQuery(JSON.parse(props.data.readquery));
     setMetaJson(metaData);
     let filtervalue = JSON.parse(props.data.readquery);
@@ -317,7 +324,7 @@ const Flexview = (props) => {
       filtervalue = JSON.parse(props.data.readquery);
     }
 
-var url ="https://arangodbservice.dev.ainqaplatform.in/api/read_documents";
+var url =props.Url;
 
   await fetch(`${url}`, {
       method: "POST",
@@ -355,7 +362,7 @@ getFilterFormQuery();
       .catch((err) => {
         console.error(err);
       });
-  }, [getFilterFormQuery, props]);
+  };
 
   const onHandleChange = (key, value) => {
     setQueryobj({ ...QueryObj, [key]: value });
@@ -376,7 +383,7 @@ getFilterFormQuery();
 
   const readFilterQuery = async (temp) => {
     
-
+    var url = props.Url;
     // console.log("config of read", config);
     await fetch(`${url}`, {
       method: "POST",

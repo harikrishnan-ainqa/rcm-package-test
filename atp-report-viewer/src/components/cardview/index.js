@@ -23,18 +23,18 @@ const Cardview = (props) => {
   const [alignment, setAlignment] = React.useState("card");
   const styleprop = React.useContext(Stylecontent);
   const flexreport = props.data.filter((e) => e.reporttype === "flexmonster");
-  console.log(styleprop);
   const [viewdetails, setViewDetails] = React.useState({
     data: {},
     view: false,
   });
 
-  const handleView = (viewvalue) => {
+  const handleView = React.useCallback((viewvalue) => {
     setViewDetails({
       view: true,
       data: viewvalue,
     });
-  }
+  }, []);
+
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) setAlignment(newAlignment);
   };
@@ -42,6 +42,7 @@ const Cardview = (props) => {
   const handleClose = () => {
     setViewDetails({
       view: false,
+      data: {},
     });
   }
   return (
@@ -249,17 +250,16 @@ const Cardview = (props) => {
                 <div>
                 <IconButton
                       size="small"
-                      onClick={() => {
-                        setViewDetails({ view: false});
-                      }}
+                      
                     >
                       <ArrowBackIosNewTwoToneIcon
                         sx={{ color: "#000" }}
                         fontSize="12"
+                        onClick={handleClose}
                       />
                     </IconButton>
                 </div>
-                <Flexview data={viewdetails.data} />
+                <Flexview data={viewdetails.data} Url={props.Url}/>
               </Grid>
             </Grid>
           )}

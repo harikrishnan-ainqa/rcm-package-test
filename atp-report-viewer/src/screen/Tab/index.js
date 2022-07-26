@@ -11,28 +11,7 @@ const CenteredTabs = (props) => {
   const [reportList, setReportList] = React.useState([]);
   const [transition, setTransition] = React.useState(false);
 
-  
-  function TabPanel(props) {
-    const {
-      children, value, index, ...other
-    } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box p={3}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
+
 
   const StyledTabs = styled((props) => (
     <Tabs
@@ -117,7 +96,7 @@ const CenteredTabs = (props) => {
             {props.projectId.length !== 0 ? (
               <Grid container style={{ marginTop: "10px" }}>
                 <Grid item lg={12}>
-                  {value === 0 && <Cardview data={reportList} />}
+                  {value === 0 && <Cardview data={reportList} Url={props.URl} />}
                   {value === 1 && <Dashboard data={reportList} />}
                   {value === 2 && <Pdf data={reportList} />}
                 </Grid>
