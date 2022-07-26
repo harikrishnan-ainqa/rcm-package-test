@@ -5,13 +5,15 @@ import { Dashboard, Cardview, Pdf } from "../../components";
 import { NetworkReadCall } from "../../utils/network";
 import Stylecontent from "../../context/index";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
+import config from "../../utils/config";
+
+
+
 const CenteredTabs = (props) => {
   const styleprop = React.useContext(Stylecontent);
   const [value, setValue] = React.useState(0);
   const [reportList, setReportList] = React.useState([]);
   const [transition, setTransition] = React.useState(false);
-
-
 
   const StyledTabs = styled((props) => (
     <Tabs
@@ -59,13 +61,14 @@ const CenteredTabs = (props) => {
   };
 
   React.useEffect(() => {
+    
     let res_data = NetworkReadCall({
-      URl:props.URl,
-      db_name: props.Report_dbname,
-      entity: props. Report_Entity,
-      filter: `${props. Report_Entity}.projectid=='${props.projectId}'`,
+      URl:config.Api_Url,
+      db_name:config.reportdbname,
+      entity:config.reportentity,
+      filter: `${config.reportentity}.projectid=='${props.projectId}'`,
       ismime_read: "true",
-      return_fields: `${props.Report_Entity}`,
+      return_fields: `${config.reportentity}`,
     });
     res_data
       .then((res) => setReportList(res.result))
@@ -96,7 +99,7 @@ const CenteredTabs = (props) => {
             {props.projectId.length !== 0 ? (
               <Grid container style={{ marginTop: "10px" }}>
                 <Grid item lg={12}>
-                  {value === 0 && <Cardview data={reportList} Url={props.URl} />}
+                  {value === 0 && <Cardview data={reportList} />}
                   {value === 1 && <Dashboard data={reportList} />}
                   {value === 2 && <Pdf data={reportList} />}
                 </Grid>

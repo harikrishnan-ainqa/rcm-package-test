@@ -12,18 +12,11 @@ const App = (props) => {
     <>
     <div {...props}>
       <AlertProvider>
-        <StyleContext query={props.query}>
+        <StyleContext >
           <Grid container>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
             <CenteredTabs 
             projectId={props.projectId} 
-            db_name={props.db_name} 
-            entiy={props.entiy} 
-            URl={props.URl}  
-            Report_dbname={props.Report_dbname}
-            Report_Entity={props.Report_Entity}
-            MetaSampleJson={props.MetaSampleJson}
-            Metadata_dbname={props.Metadata_dbname}
             />
             </Grid>
           </Grid>

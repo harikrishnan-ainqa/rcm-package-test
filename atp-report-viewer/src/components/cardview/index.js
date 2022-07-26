@@ -259,7 +259,7 @@ const Cardview = (props) => {
                       />
                     </IconButton>
                 </div>
-                <Flexview data={viewdetails.data} Url={props.Url}/>
+                <Flexview data={viewdetails.data} />
               </Grid>
             </Grid>
           )}

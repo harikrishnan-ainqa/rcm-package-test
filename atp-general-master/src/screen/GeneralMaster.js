@@ -267,7 +267,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "20px"
     },
     inputstyle: {
-        padding: "11px 19px",
+        padding: "11px 6px",
         border: "1px solid #e5dddd",
         borderRadius: "5px"
     },

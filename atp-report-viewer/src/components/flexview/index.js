@@ -28,6 +28,8 @@ import styled from "styled-components";
 import CustionAddText from "../customAddTextBox";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { AlertContext } from "../../Alert.context";
+import config from "../../utils/config"
+
 const useSytle = makeStyles((theme) => ({
   toggle: {
     "& .MuiToggleButtonGroup-grouped": {
@@ -324,7 +326,7 @@ const Flexview = (props) => {
       filtervalue = JSON.parse(props.data.readquery);
     }
 
-var url =props.Url;
+var url =config.Api_Url;
 
   await fetch(`${url}`, {
       method: "POST",
@@ -383,7 +385,8 @@ getFilterFormQuery();
 
   const readFilterQuery = async (temp) => {
     
-    var url = props.Url;
+
+    var url = config.Api_Url;
     // console.log("config of read", config);
     await fetch(`${url}`, {
       method: "POST",
