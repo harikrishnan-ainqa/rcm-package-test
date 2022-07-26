@@ -92,7 +92,7 @@ const Cardview = (props) => {
               <Grid container item spacing={5} lg={12} md={12} sm={12}>
                 {!viewdetails.view &&
                   alignment === "card" &&
-                  flexreport.map((e, i) => {
+                  flexreport?.map((e, i) => {
                     return (
                       <Grid item lg={3} md={4} sm={6} xs={12} key={i} flexWrap>
                         <Paper
@@ -121,13 +121,13 @@ const Cardview = (props) => {
                             <Grid item lg={1} md={1} sm={1} xs={1}>
                               <IconButton
                                 size="small"
-                                style={{ color: styleprop.visibilityIconColor }}
+                                style={{ color: styleprop?.visibilityIconColor }}
                                 onClick={(evt) => handleView(e)}
                               >
                                 <VisibilityIcon
                                   style={{
                                     fontSize:
-                                      styleprop.visibilityIconSize.toString(),
+                                      styleprop?.visibilityIconSize?.toString(),
                                   }}
                                 />
                               </IconButton>
@@ -162,7 +162,7 @@ const Cardview = (props) => {
                   elevation={0}
                 >
                   <Grid container item lg={12} md={12} sm={12} xl={12}>
-                    {flexreport.map((e, i) => {
+                    {flexreport?.map((e, i) => {
                       return (
                         <Grid
                           item
@@ -205,19 +205,19 @@ const Cardview = (props) => {
                             >
                               <IconButton
                                 size="small"
-                                style={{ color: styleprop.visibilityIconColor }}
+                                style={{ color: styleprop?.visibilityIconColor }}
                                 onClick={(evt) => handleView(e)}
                               >
                                 <VisibilityIcon
                                   style={{
                                     fontSize:
-                                      styleprop.visibilityIconSize.toString(),
+                                      styleprop?.visibilityIconSize.toString(),
                                   }}
                                 />
                               </IconButton>
                             </Grid>
                           </Grid>
-                          {flexreport.length - 1 !== i && (
+                          {flexreport?.length - 1 !== i && (
                             <Divider variant="fullWidth" />
                           )}
                         </Grid>

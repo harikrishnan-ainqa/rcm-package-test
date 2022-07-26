@@ -32,7 +32,7 @@ const CenteredTabs = (props) => {
     "& .MuiTabs-indicatorSpan": {
       maxWidth: 100,
       width: "100%",
-      backgroundColor: styleprop.color,
+      backgroundColor: styleprop?.color,
       transition: "all 0.5s ease-out",
     },
   });
@@ -43,9 +43,9 @@ const CenteredTabs = (props) => {
       textTransform: "none",
       fontWeight: 600,
       fontFamily: "sans-serif",
-      color: styleprop.color,
+      color: styleprop?.color,
       "&.Mui-selected": {
-        color: styleprop.color,
+        color: styleprop?.color,
         transition: "all 0.5s ease-out",
       },
       "&.Mui-focusVisible": {
@@ -78,12 +78,12 @@ const CenteredTabs = (props) => {
     <>
       <Box
         sx={{ width: "100%", bgcolor: "background.paper" }}
-        style={{ backgroundColor: styleprop.backgroundColor }}
+        style={{ backgroundColor: styleprop?.backgroundColor }}
       >
         <StyledTabs value={value} onChange={handleChange} centered>
-          <StyledTab label={styleprop.tab1} />
-          <StyledTab label={styleprop.tab2} />
-          <StyledTab label={styleprop.tab3} />
+          <StyledTab label={styleprop?.tab1} />
+          <StyledTab label={styleprop?.tab2} />
+          <StyledTab label={styleprop?.tab3} />
         </StyledTabs>
       </Box>
 

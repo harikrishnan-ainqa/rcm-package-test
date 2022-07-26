@@ -131,14 +131,14 @@ console.log("supersetReport" ,supersetReport)
                                 <IconButton
                                   size="small"
                                   style={{
-                                    color: styleprop.visibilityIconColor,
+                                    color: styleprop?.visibilityIconColor,
                                   }}
                                   onClick={(evt) => handleView(e)}
                                 >
                                   <VisibilityIcon
                                     style={{
                                       fontSize:
-                                        styleprop.visibilityIconSize.toString(),
+                                        styleprop?.visibilityIconSize.toString(),
                                     }}
                                   />
                                 </IconButton>
@@ -219,14 +219,14 @@ console.log("supersetReport" ,supersetReport)
                                 <IconButton
                                   size="small"
                                   style={{
-                                    color: styleprop.visibilityIconColor,
+                                    color: styleprop?.visibilityIconColor,
                                   }}
                                   onClick={(evt) => handleView(e)}
                                 >
                                   <VisibilityIcon
                                     style={{
                                       fontSize:
-                                        styleprop.visibilityIconSize.toString(),
+                                        styleprop?.visibilityIconSize.toString(),
                                     }}
                                   />
                                 </IconButton>
