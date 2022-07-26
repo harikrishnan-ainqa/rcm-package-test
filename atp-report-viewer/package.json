@@ -1,6 +1,6 @@
 {
-  "name": "report-viewer",
-  "version": "1.0.00",
+  "name": "report_viewer_atp",
+  "version": "1.0.1",
   "description": "Report Viewer",
   "scripts": {
     "build": "rollup -c",
