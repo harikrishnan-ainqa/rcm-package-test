@@ -587,7 +587,10 @@ function Generalmaster(props) {
         setModelEditValue([]);
         setEditModel(false);
         setOpenModel(false);
-        deleteGMValue(EditModel, response)
+        deleteGMValue(EditModel, response);
+        toast.success('Deleted Successfully', {
+            position: toast.POSITION.TOP_RIGHT
+        });
     }
 
 
