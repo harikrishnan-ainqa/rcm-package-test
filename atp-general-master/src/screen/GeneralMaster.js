@@ -15,6 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import CenterTab from '../components/centerTab/table';
 import RightTab from '../components/rightTab/RightTab';
 //import { AinqaRequestSend } from "ainqa-request";
+import { ToastContainer, toast } from 'react-toastify';
+
 import axios from "axios";
 
 
@@ -532,7 +534,12 @@ function Generalmaster(props) {
         await axios(config)
             .then(async response => {
                 getCurrentData(dataArray.Type)
+                toast.success('Updated Successfully', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
             })
+
+           
 
     }
 
@@ -558,7 +565,6 @@ function Generalmaster(props) {
         setOpenModel(false);
         getlefttabValue(EditModel, response)
     }
-
     const getlefttabValue = (EditModelvaleee, response) => {
         if (response.length > 0) {
             if (EditModelvaleee === true) {
@@ -576,6 +582,26 @@ function Generalmaster(props) {
         }
 
     }
+    const handleGMDelete = (EditModel, response) => {
+
+        setModelEditValue([]);
+        setEditModel(false);
+        setOpenModel(false);
+        deleteGMValue(EditModel, response)
+    }
+
+
+    const deleteGMValue = (EditModelvaleee, response) => {
+
+        if (EditModelvaleee === true) {
+            const data = [...gmdata];
+            data.splice(data.findIndex(a => a._key === response[0].properties.doc._key), 1)
+            setgmData(data);
+            getCurrentData(data[0].gentype)
+        }
+    }
+
+    
 
 
     const handleUserInput = (toSearch) => {
@@ -689,6 +715,7 @@ function Generalmaster(props) {
                 metadataId={props.metadataId}
                 metadata_dbname={props.metadata_dbname}
                 handleCloseModal={handleCloseModal}
+                handleGMDelete={handleGMDelete}
                 classes={classes}
             />
 
@@ -705,6 +732,7 @@ function Generalmaster(props) {
                 handleCloseAdd={handleCloseAdd}
                 classes={classes}
             />
+            <ToastContainer />
         </div>
     )
 

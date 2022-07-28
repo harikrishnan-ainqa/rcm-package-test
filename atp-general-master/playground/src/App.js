@@ -5,7 +5,7 @@ import {
     Route
 } from "react-router-dom";
 import { GeneralMaster } from 'atp-general-master';
-
+import 'react-toastify/dist/ReactToastify.css';
 const App = (props) => {
    
     return (

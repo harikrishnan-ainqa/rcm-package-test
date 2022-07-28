@@ -43,7 +43,7 @@ const TestComp = (props) => {
 
   const [AdditionalColumns , setAdditionalColmns] = useState([])
 
-  const { onClose, open , classes , columnType, EditModel, ModelEditValue , db_name , URL , metadataId , metadata_dbname , handleCloseModal} = props;
+  const { onClose, open , classes , columnType, EditModel, ModelEditValue , db_name , URL , metadataId , metadata_dbname , handleCloseModal,handleGMDelete} = props;
 
   useEffect(() => {
 
@@ -153,7 +153,6 @@ const EditSidebar = async () => {
   const payload ={
     db_name:db_name,   
     entity: "GMdefinition",
-    
     is_metadata: true,
     metadataId:metadataId,
     metadata_dbname:metadata_dbname,
@@ -185,6 +184,44 @@ await axios(config)
 
 }
   
+
+const handleDelete = async() => {
+  const doc = {
+    activestatus : !ModelEditValue.activestatus
+  }
+
+  const payload ={
+    db_name:db_name,   
+    entity: "GMdefinition",
+    is_metadata: true,
+    metadataId:metadataId,
+    metadata_dbname:metadata_dbname,
+    doc:doc,
+    filter: {
+      "_key": ModelEditValue._key
+  },
+    return_fields:"GMdefinition"
+ 
+}
+let datass = JSON.stringify([payload]);
+var config = {
+  method: 'post',
+  url: `${URL}/api/upsert_document`,
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  data: datass
+}
+
+await axios(config)
+.then(async response => {
+  if(response.data.Code === 201)
+  {
+    handleGMDelete(EditModel , response.data.Result)
+  }
+  
+})
+}
 
   const AddNewField = () => {
 
@@ -335,6 +372,12 @@ await axios(config)
           <Button variant="contained" size="small" color="primary" onClick={handleSubmit}>
             {EditModel === false ? "Save" : "Update"}
           </Button>
+
+          {EditModel === true ?
+           <Button variant="contained" size="small" color="primary" onClick={handleDelete}>Delete</Button>
+           :
+           ""
+        }
         </DialogActions>
       </Dialog>
     </>
