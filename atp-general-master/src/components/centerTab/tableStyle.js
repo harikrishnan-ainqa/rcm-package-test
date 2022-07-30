@@ -1,7 +1,6 @@
 import { lighten, darken, fade } from '@material-ui/core/styles/colorManipulator';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
-import { capitalize } from '@material-ui/core';
 const styles = theme => ({
   root: {
     paddingRight: theme.spacing(1),
