@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   overAllcount: {
     fontWeight: "bold",
     fontSize: "14px",
-    color: (props) => props.isTextDisabled ? "#b3b3b3" : "#060739",
+    color: (props) => (props.isTextDisabled ? "#b3b3b3" : "#060739"),
     fontFamily: "pc_semibold",
   },
   perpageDiv: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles({
   showingPage: {
     fontSize: "12px",
     fontFamily: "pc_regular",
-    color: (props) => props.isTextDisabled ? "#b3b3b3" : "#060739",
+    color: (props) => (props.isTextDisabled ? "#b3b3b3" : "#060739"),
   },
   prevNxtDiv: {
     display: "flex",
@@ -83,16 +83,20 @@ const useStyles = makeStyles({
 });
 
 const isActive = {
-  color: (props) => props.isActiveColor ? props.isActiveColor : "#0071F2",
+  color: (props) => (props.isActiveColor ? props.isActiveColor : "#0071F2"),
   fontFamily: "pc_extrabold",
   fontWeight: "bold",
-}
+};
 
 export const CustomTablePagination = (props) => {
-  const { count = 0,
-    handlepageChange = async () => { },
+  const {
+    count = 0,
+    handlepageChange = async () => {},
     handleChangeRowsPerPage = async () => {},
-    rowsPerPageOptions = [{ label: "10 Rows", value: 10 }], isPerPageDisabled, isTextDisabled } = props;
+    rowsPerPageOptions = [{ label: "10 Rows", value: 10 }],
+    isPerPageDisabled,
+    isTextDisabled,
+  } = props;
   const classes = useStyles(props);
   const [perpage, setPerpage] = React.useState(
     rowsPerPageOptions[0]?.value || 10
@@ -101,10 +105,8 @@ export const CustomTablePagination = (props) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState([]);
 
-
   //first render use effect.
   React.useEffect(() => {
-     
     let totalpages = Math.ceil(count / perpage);
     setPage(totalpages);
     renderNumber(totalpages);
@@ -113,18 +115,19 @@ export const CustomTablePagination = (props) => {
 
   //call everytime when perpage change
   React.useEffect(() => {
-      
     let totalpages = Math.ceil(count / perpage);
     setPage(totalpages);
-      
-    if (currentPage > totalpages) {
-      setCurrentPage(totalpages);
-    } else {
-      renderNumber(totalpages);
+    if (totalpages !== 0) {
+      if (currentPage > totalpages) {
+        console.log("totalpages", totalpages);
+
+        setCurrentPage(totalpages);
+      } else {
+        renderNumber(totalpages);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, currentPage, perpage]);
-
 
   //call everytime when current page change
   React.useEffect(() => {
@@ -132,7 +135,6 @@ export const CustomTablePagination = (props) => {
     renderNumber(totalpages);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, currentPage, perpage]);
-
 
   //onclick next page
   const next = async () => {
@@ -158,11 +160,10 @@ export const CustomTablePagination = (props) => {
       NewCurrentpage = totalpages;
     }
     setPerpage(value);
-    
-    await handlepageChange(NewCurrentpage, value);
-    await handleChangeRowsPerPage(value)
-  };
 
+    await handlepageChange(NewCurrentpage, value);
+    await handleChangeRowsPerPage(value);
+  };
 
   //render the number based on count
   const renderNumber = (totalpages) => {
@@ -197,20 +198,19 @@ export const CustomTablePagination = (props) => {
     }
     setPageCount(arr);
   };
-   
+
   return (
-    
     <div {...props}>
       <Grid container className={classes.root}>
         <div>
           <Typography className={classes.showingPage}>
-            {(currentPage - 1) * perpage} - {(currentPage * perpage) > count ? count : (currentPage * perpage)}&nbsp;&nbsp;
+            {(currentPage - 1) * perpage} -{" "}
+            {currentPage * perpage > count ? count : currentPage * perpage}
+            &nbsp;&nbsp;
             <span className={classes.overAllcount}>of {count}</span>
           </Typography>
         </div>
-        <div>
-
-        </div>
+        <div></div>
         <div className={classes.prevNxtDiv}>
           <Grid className={classes.perpageDiv}>
             <Typography className={classes.perpage} variant="h6">
@@ -241,9 +241,7 @@ export const CustomTablePagination = (props) => {
             </Grid>
             <Grid className={classes.Pageno}>
               {pageCount?.map((pg, i) => {
-                   
                 return (
-                  
                   <Typography
                     onClick={async () => {
                       if (pg) {
@@ -251,16 +249,11 @@ export const CustomTablePagination = (props) => {
                         await handlepageChange(pg, perpage);
                       }
                     }}
-                    style={
-                      currentPage === pg
-                        ? isActive
-                        : undefined
-                    }
+                    style={currentPage === pg ? isActive : undefined}
                     className={classes.no}
                   >
                     {pg ? <>{pg <= 9 ? `0${pg}` : pg}</> : <>...</>}
                   </Typography>
-                  
                 );
               })}
             </Grid>
@@ -268,7 +261,9 @@ export const CustomTablePagination = (props) => {
             <Grid className={classes.backiconGrid}>
               <NavigateNextIcon
                 className={classes.backicon}
-                style={{ color: pageCount?.length === currentPage && "#b3b3b3" }}
+                style={{
+                  color: pageCount?.length === currentPage && "#b3b3b3",
+                }}
                 onClick={() => next()}
               />
             </Grid>
