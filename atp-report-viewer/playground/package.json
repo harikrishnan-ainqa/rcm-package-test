@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@material-ui/core": "file:../node_modules/@material-ui/core",
@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.2.1",
     "formik": "file:../node_modules/formik",
     "history": "^5.1.0",
-    "atp-report-viewer": "file:..",
+    "report_viewer_atp": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
     "react-router-dom": "^5.2.0",
