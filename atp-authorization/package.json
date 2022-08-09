@@ -1,0 +1,55 @@
+{
+  "name": "atp-authorization",
+  "version": "1.0.2",
+  "description": "IAM",
+  "scripts": {
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "start-playground": "cd playground && npm run start",
+    "i-all": "npm i && cd playground && npm i",
+    "dev": "npm-run-all --parallel start start-playground"
+  },
+  "keywords": [],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-replace": "^4.0.0",
+    "npm-run-all": "^4.1.5",
+    "react-toastify": "^9.0.7",
+    "rollup": "^2.75.6",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.9.10",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
+    "atp-iam-binder": "^1.0.1",
+    "atp-multilingual": "^1.0.12",
+    "axios": "^0.27.2",
+    "classnames": "^2.3.1",
+    "date-fns": "^2.29.1",
+    "dotenv": "^16.0.1",
+    "formik": "^2.2.9",
+    "md5": "^2.3.0",
+    "prop-types": "^15.8.1",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^5.2.0",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.9"
+  }
+}
