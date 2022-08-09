@@ -6,7 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-
+import { messageCatalogGetter } from "../../utils/common/function";
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
@@ -21,13 +21,13 @@ const LeftTabs = (props) => {
         <>
             <div className={classes.leftsidebar}>
                 <div className={classes.SearchButton}>
-                    <input aria-invalid="false" placeholder="Search" type="text" value={gmfilter} onChange={handlegmFilterChange} className={classes.inputstyle} />
+                    <input aria-invalid="false" placeholder={messageCatalogGetter("Search") ?? "Search"} type="text" value={gmfilter} onChange={handlegmFilterChange} className={classes.inputstyle} />
                 </div>
                 <Divider />
 
                 <AppBar position="static" color="default" className={classes.appbarstyle} >
                     <Button className={classes.Addnewbutton} variant="contained" size="small" color="primary" onClick={handleOpen} startIcon={<AddIcon style={{ color: "#fff" }} />}>
-                        <span className={classes.spanStyle}>Add New</span>
+                        <span className={classes.spanStyle}>{messageCatalogGetter("Add New") ?? "Add New"}</span>
                     </Button>
 
                     <Tabs value={value}

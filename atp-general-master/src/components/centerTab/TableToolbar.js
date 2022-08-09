@@ -6,7 +6,7 @@ import styles from './tableStyle';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
-
+import { messageCatalogGetter } from "../../utils/common/function";
 function TableToolbar(props) {
 
     const {
@@ -82,7 +82,7 @@ function TableToolbar(props) {
                         {/* <div className={classes.spacer} /> */}
                         {showButton ?
                             <Button className={classes.Buttonstyle} variant="contained" color="primary" onClick={handleAnchorOpen} endIcon={<AddIcon style={{ color: "#fff" }} />}>
-                                <span style={{ fontSize: "14px", textTransform: "capitalize", fontWeight: "bold", color: "#fff" }}>Add New</span>
+                                <span style={{ fontSize: "14px", textTransform: "capitalize", fontWeight: "bold", color: "#fff" }}>{messageCatalogGetter("Add New") ?? "Add New"}</span>
                             </Button>
                             :
                             null

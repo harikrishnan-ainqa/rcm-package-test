@@ -11,14 +11,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import CloseIcon from '@material-ui/icons/Close';
 import withTheme from '../../themeProvider'
 import withStyleFix from '../../stylefix'
-import { makeStyles } from '@material-ui/core/styles'
-import green from '@material-ui/core/colors/green'
-import red from '@material-ui/core/colors/red'
-import {
-  lighten,
-  darken,
-  fade,
-} from '@material-ui/core/styles/colorManipulator';
+import { messageCatalogGetter } from "../../utils/common/function";
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import axios from "axios";
@@ -314,7 +307,7 @@ await axios(config)
               <p style={titleStyle}> Additional Columns
                 <Button className={classes.Addnewbutton} variant="contained" size="small" color="primary" startIcon={<AddIcon style={{ color: "#fff" }} />} onClick={AddNewField}>
 
-                  Add New
+                {messageCatalogGetter("Add New") ?? "Add New"}
                 </Button>
               </p>
             </Grid>
