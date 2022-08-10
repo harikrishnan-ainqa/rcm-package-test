@@ -1,6 +1,6 @@
 {
   "name": "atp-authentication",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "atp-authentication",
   "scripts": {
     "build": "rollup -c",
