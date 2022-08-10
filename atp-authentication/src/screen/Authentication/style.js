@@ -27,10 +27,9 @@ const useStyles = makeStyles((theme) => ({
 	  },
 	paperWrap: {
 		width:"550px",
-		background:'#fff',
+		margin: "10% auto",
+		display: "block",
 		padding: `${theme.spacing(3)}px ${theme.spacing(1)}px`,
-		position: "absolute",
-		top: "100px",
 	},
 	title: {
 		color: theme.palette.primary.main,
