@@ -88,10 +88,11 @@ const handleCloseSignup = (error , Message) => {
              ForgetPassword: false
          })
 
+       
          if(props?.redirectUrl !== undefined){
 
-            let Link = props?.redirectUrl
-            window.location.href= props?.redirectUrl
+            let Link = props?.redirectUrl?.componentpath
+            window.location.href= Link
          }
 
          else{
@@ -181,5 +182,6 @@ const handleCloseSignup = (error , Message) => {
 
 
 }
+
 
 export default withStyleFix(withTheme((Authentication)))
