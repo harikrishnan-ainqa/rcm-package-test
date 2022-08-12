@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     rootTable: {
         width: '100%',
         marginTop: theme.spacing(3),
-        overflowX: 'auto',
+        overflowX: 'hidden',
         margingBottom: '15px',
         backgroundColor: '#fff',
     },
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
     tableWrapper: {
         marginTop: '5px',
         padding: '20px',
+        overflowX:"auto"
     },
     title: {
         flex: '0 0 auto',
@@ -301,7 +302,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "13px !important"
     },
     drawerstyle: {
-        overflow: "hidden",
+        overflow:"auto",
         width: "400px"
     },
     titleStyle: {

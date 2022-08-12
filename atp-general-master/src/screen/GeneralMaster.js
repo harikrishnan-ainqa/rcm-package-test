@@ -25,6 +25,7 @@ function Generalmaster(props) {
     const [AnchorEl, setAnchorE1] = useState(false)
     const [ModelEditValue, setModelEditValue] = useState([])
     const [EditModel, setEditModel] = useState(false)
+    const [selecteddatavalue , setSelectedDatavalue] = useState([]);
     const [formState, setFormState] = useState({
         order: props.order,
         orderBy: props.orderBy,
@@ -72,6 +73,7 @@ function Generalmaster(props) {
                 if (response?.data?.Code === 201) {
                     setgmData(response?.data?.result)
                     const selecteddata = response?.data?.result[value];
+                    setSelectedDatavalue([selecteddata])
                     getCurrentData(selecteddata.gentype);
                 }
                 else {
@@ -113,6 +115,13 @@ function Generalmaster(props) {
             .post(`${props.URl}/api/read_documents`, payloadvalue)
             .then(async (response) => {
                 if (response?.data?.Code === 201) {
+                 if(gmdata.length > 0)
+                 {
+                    const selctValue = gmdata.filter(li => li.gentype === newValue);
+                    setSelectedDatavalue(selctValue)
+                 }
+          
+             
                     setFormState({ ...formState, data: response?.data?.result, title: newValue })
 
                 }
@@ -319,7 +328,6 @@ function Generalmaster(props) {
 
 
 
-
     return (
         <div {...props}>
             <Grid container className={classes.rootTable} spacing={2}>
@@ -370,6 +378,7 @@ function Generalmaster(props) {
                         metadata_dbname={props.metadata_dbname}
                         classes={classes}
                         EditStatus={EditStatus}
+                        selecteddatavalue={selecteddatavalue}
 
                     />
                 </Grid>
@@ -393,6 +402,7 @@ function Generalmaster(props) {
             <RightTab
                 AnchorEl={AnchorEl}
                 handleAnchorClose={handleAnchorClose}
+                selecteddatavalue={selecteddatavalue}
                 title={formState.title}
                 editTable={editTable}
                 editvalue={editvalue}
@@ -431,16 +441,7 @@ Generalmaster.defaultProps = {
             numeric: false,
             label: 'LongDescription',
         },
-        {
-            id: 'status',
-            numeric: false,
-            label: 'Status',
-        },
-        {
-            id: 'Edit',
-            numeric: false,
-            label: 'Edit',
-        }
+        
 
     ],
     page: 0,

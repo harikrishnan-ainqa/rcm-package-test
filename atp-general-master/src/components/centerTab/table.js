@@ -46,14 +46,56 @@ function TabPanel(props) {
 const CenterTab = (props) => {
   //const classes = useStyles({ ...props })
 
-  const { toolbar, value, showTitle, classes , showSearch, showButton, columnData, page ,rowsPerPage, rowsPerPageOptions, size, stripped, hovered , checkcell, bordered, data, formState , filterText , title,  handleOpen  , orderBy , handleAnchorOpen , pagination , EditAnchorOpen , handleUserInput , handleRequestSort, handlepageChange, handleChangeRowsPerPage ,EditStatus} = props
+  const { toolbar, value, showTitle, classes, showSearch, showButton, columnData, page, rowsPerPage, rowsPerPageOptions, size, stripped, hovered, checkcell, bordered, data, formState, filterText, title, handleOpen, orderBy, handleAnchorOpen, pagination, EditAnchorOpen, handleUserInput, handleRequestSort, handlepageChange, handleChangeRowsPerPage, EditStatus, selecteddatavalue } = props
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage)
 
-   
-   
+  const [headerData, setHeaderData] = useState([]);
+
+  const defaultvalue = [
+    {
+      id: 'status',
+      numeric: false,
+      label: 'Status',
+    },
+    {
+      id: 'Edit',
+      numeric: false,
+      label: 'Edit',
+    }
+  ]
+  useEffect(() => {
+    setHeaderData(columnData)
+    if (selecteddatavalue?.length > 0) {
+
+      if (selecteddatavalue[0]?.additionalcolumns?.length > 0) {
+
+        selecteddatavalue[0]?.additionalcolumns.map((datasss) => {
+
+          const data = {
+            id: datasss?.columnname,
+            numeric: false,
+            label: datasss?.columnname,
+          }
+
+          setHeaderData(arr => [...arr, data]);
+
+        })
+
+
+      }
+
+    }
+    defaultvalue.map(defaultdata => {
+      setHeaderData(arr => [...arr, defaultdata]);
+    })
+
+  }, [selecteddatavalue])
+
+
   const renderCell = (dataArray, keyArray) =>
+
 
     keyArray.map((itemCell, index) => (
       <TableCell
@@ -62,33 +104,47 @@ const CenterTab = (props) => {
       >
         {(() => {
           const datasss = dataArray.coding[0];
-          if(dataArray.coding.length > 0)
-          {
-          if (itemCell.id === "status") {
-            return <FormControlLabel control={<Switch checked={datasss[itemCell.id]} onChange={(e) => EditStatus(dataArray)} name="Status" />} />
-          }
+          if (dataArray.coding.length > 0) {
+            if (itemCell.id === "status") {
+              return <FormControlLabel control={<Switch checked={datasss[itemCell.id]} onChange={(e) => EditStatus(dataArray)} name="Status" />} />
+            }
 
-          else if(itemCell.id === "Edit")
-          {
-            return <EditIcon className={classes.editiconstyle} onClick ={(e) => EditAnchorOpen(dataArray) } />
-          }
+            else if (itemCell.id === "Edit") {
+              return <EditIcon className={classes.editiconstyle} onClick={(e) => EditAnchorOpen(dataArray)} />
+            }
 
-          else {
+            else {
 
-            const datasss = dataArray.coding[0];
-            return datasss[itemCell.id]
+              const datasss = dataArray.coding[0];
+              if (datasss[itemCell.id] === undefined) {
+                const datavalue = dataArray?.coding[0]?.gmconfigvalues
+                if (typeof datavalue[itemCell.id] === "boolean") {
+
+                  return <FormControlLabel control={<Switch checked={datavalue[itemCell.id]} />} />
+                }
+                else {
+                  return datavalue[itemCell.id]
+
+                }
+              }
+
+              else {
+                return datasss[itemCell.id]
+              }
+            }
           }
-        }
         })()}
 
       </TableCell>
 
-    ))
+    )
+
+    )
 
   return (
 
     <div {...props}>
-     
+
       <TabPanel value={value} index={value}>
         {toolbar ? (
           <TableToolbar
@@ -117,7 +173,7 @@ const CenterTab = (props) => {
               order={props.order}
               orderBy={orderBy}
               rowCount={data.length}
-              columnData={columnData}
+              columnData={headerData}
               onRequestSort={(e, p) => handleRequestSort(e, p)}
             />
             <TableBody>
@@ -135,7 +191,7 @@ const CenterTab = (props) => {
                             tabIndex={-1}
                             key={n.id}
                           >
-                            {renderCell(n, columnData)}
+                            {renderCell(n, headerData)}
                           </TableRow>
                         )
                       })}
@@ -146,7 +202,7 @@ const CenterTab = (props) => {
 
                       return (
                         <TableRow role="checkbox" tabIndex={-1} key={n.id}>
-                          {renderCell(n, columnData)}
+                          {renderCell(n, headerData)}
                         </TableRow>
                       )
                     })}
@@ -167,7 +223,7 @@ const CenterTab = (props) => {
             handlepageChange={(event) => handlepageChange(event)}
             rowsPerPageOptions={rowsPerPageOptions}
             handleChangeRowsPerPage={(event) =>
-            handleChangeRowsPerPage(event)
+              handleChangeRowsPerPage(event)
             }
           />
         )}

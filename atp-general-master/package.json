@@ -1,6 +1,6 @@
 {
   "name": "atp-general-master",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "General Master Page",
   "scripts": {
     "build": "rollup -c",

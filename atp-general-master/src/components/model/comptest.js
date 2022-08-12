@@ -1,11 +1,11 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {FormControlLabel, Switch } from "@material-ui/core";
+import { FormControlLabel, Switch } from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import FormLabel from '@material-ui/core/FormLabel';
 import CloseIcon from '@material-ui/icons/Close';
@@ -34,21 +34,19 @@ const TestComp = (props) => {
     MasterName: "",
   })
 
-  const [AdditionalColumns , setAdditionalColmns] = useState([])
+  const [AdditionalColumns, setAdditionalColmns] = useState([])
 
-  const { onClose, open , classes , columnType, EditModel, ModelEditValue , db_name , URL , metadataId , metadata_dbname , handleCloseModal,handleGMDelete} = props;
+  const { onClose, open, classes, columnType, EditModel, ModelEditValue, db_name, URL, metadataId, metadata_dbname, handleCloseModal, handleGMDelete , gmdata} = props;
 
   useEffect(() => {
 
-    if(EditModel === true)
-    {
-     
+    if (EditModel === true) {
+
       getData(ModelEditValue);
- 
+
     }
 
-    else if(EditModel === false)
-    {
+    else if (EditModel === false) {
       setinputvalue({
         MasterType: "",
         MasterName: "",
@@ -56,14 +54,46 @@ const TestComp = (props) => {
       setAdditionalColmns([]);
     }
 
-  },[EditModel]);
+  }, [EditModel]);
 
 
+  useEffect (() => {
+
+
+  },[])
   const getData = (ModelEditValue) => {
-    setinputvalue({     
+
+
+    setinputvalue({
       MasterType: ModelEditValue.gentype,
       MasterName: ModelEditValue.genname,
     })
+    setAdditionalColmns([]);
+
+    ModelEditValue?.additionalcolumns?.map((aditionalvaluess) => {
+      let columntype ;
+
+      if(typeof aditionalvaluess?.columntype === "string")
+      {
+        columntype = aditionalvaluess?.columntype
+      }
+      else if(typeof aditionalvaluess?.columntype === "object")
+      {
+        columntype = aditionalvaluess?.columntype?._id
+      }
+      
+      const data={
+      columnname: aditionalvaluess?.columnname,
+      columntype: columntype,
+      columnsize: aditionalvaluess?.columnsize,
+      ismandatory: aditionalvaluess?.ismandatory
+    }
+
+    setAdditionalColmns(arr => [...arr , data]);
+
+    })
+
+   
   }
   const onTextChange = (e) => {
 
@@ -78,12 +108,11 @@ const TestComp = (props) => {
 
   const handleSubmit = async () => {
 
-    if(EditModel === true)
-    {
+    if (EditModel === true) {
       EditSidebar();
     }
 
-    else{
+    else {
       AddSideBar();
     }
 
@@ -93,137 +122,134 @@ const TestComp = (props) => {
   const AddSideBar = async () => {
 
     const doc = {
-      genname:inputvalue.MasterName,
-      gentype:inputvalue.MasterType,
-      additionalcolumns:AdditionalColumns,
+      genname: inputvalue.MasterName,
+      gentype: inputvalue.MasterType,
+      additionalcolumns: AdditionalColumns,
       issystemdefined: true
     }
 
-    const payload ={
-      db_name:db_name,   
+    const payload = {
+      db_name: db_name,
       entity: "GMdefinition",
       is_metadata: true,
-      metadataId:metadataId,
-      metadata_dbname:metadata_dbname,
-      doc:doc,
-      return_fields:"GMdefinition"
-   
-  }
-  let datass = JSON.stringify([payload]);
-  var config = {
-    method: 'post',
-    url: `${URL}/api/upsert_document`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    data: datass
-  }
+      metadataId: metadataId,
+      metadata_dbname: metadata_dbname,
+      doc: doc,
+      return_fields: "GMdefinition"
 
-  await axios(config)
-  .then(async response => {
-    if(response.data.Code === 201)
-    {
-        console.log("response" ,response.data.result)
-
-        handleCloseModal(EditModel , response.data.Result)
     }
-    
-  })
- 
+    let datass = JSON.stringify([payload]);
+    var config = {
+      method: 'post',
+      url: `${URL}/api/upsert_document`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: datass
+    }
 
-}
+    await axios(config)
+      .then(async response => {
+        if (response.data.Code === 201) {
+          console.log("response", response.data.result)
+
+          handleCloseModal(EditModel, response.data.Result)
+        }
+
+      })
 
 
-const EditSidebar = async () => {
-
-  const doc = {
-    genname:inputvalue.MasterName,
-    gentype:inputvalue.MasterType,
-    additionalcolumns:AdditionalColumns,
-    issystemdefined: true
   }
 
-  const payload ={
-    db_name:db_name,   
-    entity: "GMdefinition",
-    is_metadata: true,
-    metadataId:metadataId,
-    metadata_dbname:metadata_dbname,
-    doc:doc,
-    filter: {
-      "_key": ModelEditValue._key
-  },
-    return_fields:"GMdefinition"
- 
-}
-let datass = JSON.stringify([payload]);
-var config = {
-  method: 'post',
-  url: `${URL}/api/upsert_document`,
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  data: datass
-}
 
-await axios(config)
-.then(async response => {
-  if(response.data.Code === 201)
-  {
-    handleCloseModal(EditModel , response.data.Result)
+  const EditSidebar = async () => {
+
+    const doc = {
+      genname: inputvalue.MasterName,
+      gentype: inputvalue.MasterType,
+      additionalcolumns: AdditionalColumns,
+      issystemdefined: true
+    }
+
+    const payload = {
+      db_name: db_name,
+      entity: "GMdefinition",
+      is_metadata: true,
+      metadataId: metadataId,
+      metadata_dbname: metadata_dbname,
+      doc: doc,
+      filter: {
+        "_key": ModelEditValue._key
+      },
+      return_fields: "GMdefinition"
+
+    }
+    let datass = JSON.stringify([payload]);
+    var config = {
+      method: 'post',
+      url: `${URL}/api/upsert_document`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: datass
+    }
+
+    await axios(config)
+      .then(async response => {
+        if (response.data.Code === 201) {
+          handleCloseModal(EditModel, response.data.Result)
+        }
+
+      })
+
   }
-  
-})
 
-}
-  
 
-const handleDelete = async() => {
-  const doc = {
-    activestatus : !ModelEditValue.activestatus
+  const handleDelete = async () => {
+    const doc = {
+      activestatus: !ModelEditValue.activestatus
+    }
+
+    const payload = {
+      db_name: db_name,
+      entity: "GMdefinition",
+      is_metadata: true,
+      metadataId: metadataId,
+      metadata_dbname: metadata_dbname,
+      doc: doc,
+      filter: {
+        "_key": ModelEditValue._key
+      },
+      return_fields: "GMdefinition"
+
+    }
+    let datass = JSON.stringify([payload]);
+    var config = {
+      method: 'post',
+      url: `${URL}/api/upsert_document`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: datass
+    }
+
+    await axios(config)
+      .then(async response => {
+        if (response.data.Code === 201) {
+          handleGMDelete(EditModel, response.data.Result)
+        }
+
+      })
   }
-
-  const payload ={
-    db_name:db_name,   
-    entity: "GMdefinition",
-    is_metadata: true,
-    metadataId:metadataId,
-    metadata_dbname:metadata_dbname,
-    doc:doc,
-    filter: {
-      "_key": ModelEditValue._key
-  },
-    return_fields:"GMdefinition"
- 
-}
-let datass = JSON.stringify([payload]);
-var config = {
-  method: 'post',
-  url: `${URL}/api/upsert_document`,
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  data: datass
-}
-
-await axios(config)
-.then(async response => {
-  if(response.data.Code === 201)
-  {
-    handleGMDelete(EditModel , response.data.Result)
-  }
-  
-})
-}
 
   const AddNewField = () => {
 
-    const data = {	
-    ColumnName:"",
-    ColumnType:"",
-    ColumnSize:"",
-    mandatory:false
-  }
+    const data = {
+      columnname: "",
+      columntype: "",
+      columnsize: "",
+      ismandatory: false
+    }
     const datassss = [...AdditionalColumns];
     datassss.push(data)
     setAdditionalColmns(datassss);
@@ -238,16 +264,22 @@ await axios(config)
   };
 
   const setValue = (index, event) => {
+
     const values = [...AdditionalColumns];
     const updatedValue = event.target.name;
-    if(updatedValue === "mandatory")
-    {
+    if (updatedValue === "ismandatory") {
       const newValue = values[index][updatedValue];
       values[index][updatedValue] = !newValue;
     }
 
-    else{
-      values[index][updatedValue] = event.target.value;
+    else {
+      if (updatedValue === "columnsize") {
+        values[index][updatedValue] = parseInt(event.target.value);
+      }
+
+      else {
+        values[index][updatedValue] = event.target.value;
+      }
     }
     setAdditionalColmns(values);
   };
@@ -307,46 +339,47 @@ await axios(config)
               <p style={titleStyle}> Additional Columns
                 <Button className={classes.Addnewbutton} variant="contained" size="small" color="primary" startIcon={<AddIcon style={{ color: "#fff" }} />} onClick={AddNewField}>
 
-                {messageCatalogGetter("Add New") ?? "Add New"}
+                  {messageCatalogGetter("Add New") ?? "Add New"}
                 </Button>
               </p>
             </Grid>
             <hr />
-           
+
             {AdditionalColumns && AdditionalColumns.length ?
               AdditionalColumns.map((val, index) => {
+            
                 return (
                   <Grid container className={classes.content} spacing={2}>
                     <Grid item md={3}>
                       <FormLabel> Column Name <span className={classes.spaninp}>*</span></FormLabel>
                       <br />
-                      <input aria-invalid="false" type="text" name="ColumnName" value={val.ColumnName} onChange={(event) => setValue(index, event)} className={classes.inputstyle} />
+                      <input aria-invalid="false" type="text" name="columnname" value={val.columnname} onChange={(event) => setValue(index, event)} className={classes.inputstyle} />
                     </Grid>
                     <Grid item md={3}>
                       <FormLabel> Column Type <span className={classes.spaninp}>*</span></FormLabel>
                       <br />
-                      <select value={val.ColumnType} className={classes.inputstyle}  name="ColumnType" onChange={(event) => setValue(index, event)} >
-                      <option value="">Chooseee Column Type</option>
+                      <select value={val.columntype} className={classes.inputstyle} name="columntype" onChange={(event) => setValue(index, event)} >
+                        <option value="">Choose Column Type</option>
 
-                      {columnType.length > 0 ? columnType.map((valuesss, index) => (
+                        {columnType.length > 0 ? columnType.map((valuesss, index) => (
                           <option value={valuesss._id}>{valuesss.display}</option>
                         ))
-                        : null}
-                        
+                          : null}
+
 
                       </select>
-                      {/* <input aria-invalid="false" type="text" name="ColumnType" value={val.ColumnType} onChange={(event) => setValue(index, event)} className={classes.inputstyle} /> */}
+                      {/* <input aria-invalid="false" type="text" name="columntype" value={val.columntype} onChange={(event) => setValue(index, event)} className={classes.inputstyle} /> */}
                     </Grid>
                     <Grid item md={3}>
                       <FormLabel>Column Size</FormLabel>
                       <br />
-                      <input aria-invalid="false" type="text" name="ColumnSize" value={val.ColumnSize} onChange={(event) => setValue(index, event)} className={classes.inputstyle} />
+                      <input aria-invalid="false" type="number" name="columnsize" value={val.columnsize} onChange={(event) => setValue(index, event)} className={classes.inputstyle} />
                     </Grid>
                     <Grid item md={2}>
                       <FormLabel>Mandatory</FormLabel>
                       <br />
-                      <FormControlLabel control={<Switch  checked={val.mandatory} name="mandatory" onChange={(event) => setValue(index, event)} />}  />
-           
+                      <FormControlLabel control={<Switch checked={val.ismandatory} name="ismandatory" onChange={(event) => setValue(index, event)} />} />
+
 
                     </Grid>
                     <Grid item md={1}>
@@ -367,10 +400,10 @@ await axios(config)
           </Button>
 
           {EditModel === true ?
-           <Button variant="contained" size="small" color="primary" onClick={handleDelete}>Delete</Button>
-           :
-           ""
-        }
+            <Button variant="contained" size="small" color="primary" onClick={handleDelete}>Delete</Button>
+            :
+            ""
+          }
         </DialogActions>
       </Dialog>
     </>
