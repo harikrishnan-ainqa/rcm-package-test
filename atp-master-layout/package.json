@@ -1,6 +1,6 @@
 {
   "name": "atp-master-layout",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "Functional components build for RCM project",
   "scripts": {
     "build": "rollup -c",
